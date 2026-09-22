@@ -237,6 +237,13 @@
     box-shadow:var(--shadow);
   }
   .btn-primary:hover{ background:linear-gradient(135deg, var(--accent-btn), var(--accent-btn-strong)); }
+  .btn-primary.active{ animation: heroBtnPulse .5s ease; }
+  @keyframes heroBtnPulse{
+    0%{ transform:scale(1); box-shadow:0 0 0 0 color-mix(in srgb, var(--accent-btn) 55%, transparent), var(--shadow); }
+    35%{ transform:scale(.96); }
+    65%{ transform:scale(1.03); box-shadow:0 0 0 16px color-mix(in srgb, var(--accent-btn) 0%, transparent), var(--shadow); }
+    100%{ transform:scale(1); box-shadow:var(--shadow); }
+  }
   .btn-ghost{
     background:transparent;
     color:var(--ink);
@@ -698,13 +705,13 @@
 
   <!-- ============ COVER ============ -->
   <section id="screen-cover">
-    <p class="eyebrow">Evaluación · Semanas 1–2</p>
+    <p class="eyebrow">Evaluación · Semanas 1–3</p>
     <h1 class="hero-title">Hoy no copias una señal.<br>Hoy demuestras criterio.</h1>
-    <p class="hero-sub">Esto no es un examen de memoria. Vas a usar, en un solo lugar, todo lo construido desde la Semana 1: mecánica de mercado, contexto de sesiones, estructura de precio, gestión de riesgo con números reales, tu plan — y el vocabulario institucional de la Semana 2. Hay escenarios y hay cálculo: no basta con reconocer la definición.</p>
+    <p class="hero-sub">Esto no es un examen de memoria. Vas a usar, en un solo lugar, todo lo construido desde la Semana 1: mecánica de mercado, contexto de sesiones, estructura de precio, gestión de riesgo con números reales, tu plan, el vocabulario institucional de la Semana 2 — y el diseño de tu propio modelo de entrada de la Semana 3. Hay escenarios y hay cálculo: no basta con reconocer la definición.</p>
 
     <div class="hero-meta">
-      <span class="meta-chip"><b id="meta-total">27</b> preguntas</span>
-      <span class="meta-chip"><b>10</b> bloques · A–J</span>
+      <span class="meta-chip"><b id="meta-total">50</b> preguntas</span>
+      <span class="meta-chip"><b>11</b> bloques · A–K</span>
       <span class="meta-chip">Incluye cálculos de riesgo</span>
       <span class="meta-chip">Sin cronómetro</span>
     </div>
@@ -784,7 +791,7 @@
     <button class="btn btn-ghost" id="btn-restart" type="button" style="margin-block-start:14px;">Repetir evaluación</button>
   </section>
 
-  <footer class="foot">Lic. Pablo Solares Aguilar — Programa de 3 meses, mentoría 1 a 1 · Evaluación de Semanas 1–2</footer>
+  <footer class="foot">Lic. Pablo Solares Aguilar — Programa de 3 meses, mentoría 1 a 1 · Evaluación de Semanas 1–3</footer>
 </div>
 
 <script>
@@ -810,174 +817,296 @@
     G: { name: "Costos y errores de riesgo", doc: "Semana 2 — Bloque G" },
     H: { name: "Liquidez y Order Blocks", doc: "Semana 2 — Bloque H" },
     I: { name: "Confluencias técnicas", doc: "Semana 2 — Bloque I" },
-    J: { name: "Correlaciones y disciplina", doc: "Semana 2 — Bloque J" }
+    J: { name: "Correlaciones y disciplina", doc: "Semana 2 — Bloque J" },
+    K: { name: "Diseño del modelo de entrada", doc: "Semana 3 — Bloque K" }
   };
-  const BLOCK_ORDER = ["A","B","C","D","E","F","G","H","I","J"];
+  const BLOCK_ORDER = ["A","B","C","D","E","F","G","H","I","J","K"];
 
-  const QUESTIONS = [
-    { block:"A", type:"numeric", unit:"USD",
-      q:"Operas GBP/JPY con un lote estándar. En pares con yen, un pip equivale al segundo decimal. Si el precio se mueve 18 pips a tu favor y el valor por pip para ese par y tamaño es de $9 USD, ¿cuántos dólares ganaste?",
-      answer:162, tolerance:5,
-      explain:"18 pips × $9 por pip = $162. El valor del pip cambia según el par y el tamaño de posición — por eso siempre lo confirmas antes de operar." },
+const QUESTIONS = [
     { block:"A", q:"Tu bróker ofrece apalancamiento 1:500. Usas $200 de margen para controlar $100,000 de exposición. ¿Qué afirmación es correcta?", opts:[
         "El margen usado no define tu riesgo real: eso depende del stop y el lotaje.",
         "Un apalancamiento alto por sí mismo hace que la operación sea más segura.",
         "El margen retenido es igual a la pérdida máxima que puede tener la operación.",
         "Más apalancamiento disponible implica, por definición, un menor riesgo real."], correct:0,
       explain:"Que el bróker permita una posición grande no significa que sea prudente. El margen es una cifra de garantía; el riesgo real lo define tu stop loss y tu plan." },
-    { block:"A", q:"El spread de XAU/USD pasa de 20 a 65 puntos en segundos, sin ninguna noticia programada. ¿Cuál es la explicación más probable?", opts:[
-        "El bróker decidió subir permanentemente su comisión por operación.",
-        "Hubo una caída temporal de liquidez disponible en ese instante del mercado.",
-        "El precio del oro subió, y una subida de precio por sí sola amplía el spread.",
-        "Es un error de la plataforma que se corrige solo en los próximos minutos."], correct:1,
-      explain:"El spread se amplía cuando baja la liquidez disponible en ese instante — es contexto de mercado, no un cambio de tarifa." },
-
-    { block:"B", q:"Son las 14:30 UTC. Según los horarios de sesión, ¿qué mercados están probablemente activos al mismo tiempo?", opts:[
-        "Sídney y Tokio, por ser las dos sesiones asiáticas del día.",
-        "Ningún mercado, ya que a esa hora se considera cierre general.",
-        "Londres y Nueva York, coincidiendo en su ventana de solape.",
-        "Solo Tokio, que sigue activo hasta media tarde en Londres."], correct:2,
-      explain:"Londres (08:00–17:00 UTC) y Nueva York (13:00–22:00 UTC) se solapan justo en ese horario — la ventana de mayor actividad del día." },
-    { block:"B", q:"A las 23:00 UTC notas volumen notablemente bajo y un spread más amplio de lo normal. ¿Qué acción es más consistente con buena gestión de riesgo?", opts:[
-        "Aumentar el lotaje para compensar el spread más amplio del momento.",
-        "Ejecutar igual sin ajustar nada; el volumen no cambia el riesgo real.",
-        "Cambiar por completo de estrategia mientras dure ese horario del día.",
-        "Subir tu exigencia con la señal antes de arriesgar capital en ese contexto."], correct:3,
-      explain:"El contexto de sesión no decide por ti, pero sí debe subir tu exigencia antes de arriesgar capital en condiciones de baja liquidez." },
-
-    { block:"C", q:"En el gráfico ves máximos en 1950, 1962, 1958, 1971 y mínimos en 1940, 1949, 1955, 1964. ¿Qué estructura describe mejor esta secuencia?", opts:[
-        "Una tendencia alcista, con máximos y mínimos cada vez más altos.",
-        "Un rango lateral, sin una dirección definida en el precio.",
-        "Una tendencia bajista, con máximos y mínimos cada vez más bajos.",
-        "Un barrido de liquidez sobre el máximo más reciente de la serie."], correct:0,
-      explain:"Cada máximo y mínimo es más alto que el anterior — la definición exacta de una estructura alcista (HH/HL)." },
-    { block:"C", q:"El precio rompe una resistencia clara, cierra tres velas por encima de ella, y en el siguiente retroceso esa misma zona detiene la caída y el precio rebota. ¿Qué describe este cambio de rol?", opts:[
-        "Un order block bajista que se formó justo en esa resistencia.",
-        "Un cambio de polaridad: la resistencia superada ahora actúa como soporte.",
-        "Un barrido de liquidez que finalmente falló en revertir el precio.",
-        "Un spread inusualmente amplio que distorsionó la lectura del nivel."], correct:1,
-      explain:"Es el fenómeno de cambio de polaridad: una zona que frenaba la subida ahora frena la caída, una vez que el precio la superó con convicción." },
-    { block:"C", q:"Una vela con cuerpo pequeño y una mecha inferior mucho más larga que el cuerpo, cerca del final de una caída, generalmente indica:", opts:[
-        "Continuación fuerte de la tendencia bajista en curso.",
-        "Que el mercado permaneció cerrado durante ese periodo.",
-        "Rechazo de precios más bajos y posible presión compradora.",
-        "Un error de graficación en la plataforma que se usa."], correct:2,
-      explain:"La mecha larga muestra que el precio bajó pero fue rechazado con fuerza — los compradores recuperaron el control antes del cierre." },
-
-    { block:"D", type:"numeric", unit:"USD",
-      q:"Tu cuenta tiene $2,000 USD. Decides arriesgar 1.5% en una operación. ¿Cuántos dólares, exactamente, estás dispuesto a perder si el stop loss se ejecuta?",
-      answer:30, tolerance:0.5,
-      explain:"$2,000 × 1.5% = $30. Este número se define antes de tocar el gráfico — no después." },
-    { block:"D", type:"numeric", unit:"lotes",
-      q:"Capital de $5,000, riesgo de 2% por operación, stop loss de 40 pips (valor de pip $10 por lote estándar). Usa: lotes = riesgo en $ ÷ (pips de stop × valor de pip por lote). ¿Cuál es el tamaño de posición en lotes estándar?",
-      answer:0.25, tolerance:0.02,
-      explain:"Riesgo en $ = $5,000 × 2% = $100. Lotes = $100 ÷ (40 × $10) = $100 ÷ $400 = 0.25 lotes." },
-    { block:"D", q:"Colocaste un stop loss de 20 pips y calculaste tu lotaje para arriesgar $40. A mitad de la operación mueves el stop a 35 pips 'porque crees que va a regresar'. ¿Qué pasó con tu riesgo real?", opts:[
-        "Sigue siendo $40, porque el lotaje de la operación no cambió.",
-        "Disminuyó, porque el precio ahora tiene más espacio para moverse.",
-        "No se puede saber sin conocer el resultado final de la operación.",
-        "Aumentó, porque el mismo lotaje ahora cubre una distancia de stop mayor."], correct:3,
-      explain:"El riesgo en dólares depende del lotaje Y de la distancia del stop. Si el lotaje no cambia pero el stop se aleja, el riesgo real sube por encima de lo planeado." },
-    { block:"D", q:"Dos operaciones arriesgan el mismo monto en dólares. La Operación 1 tiene R:R de 1:1.5 y la Operación 2 de 1:3, con la misma probabilidad de acierto. ¿Qué es correcto a largo plazo?", opts:[
-        "La Operación 2 puede ser rentable acertando un porcentaje menor de veces.",
-        "Ambas son igual de rentables a largo plazo, porque el riesgo es idéntico.",
-        "La Operación 1 es mejor, porque cierra sus ganancias con más rapidez.",
-        "El R:R no influye en la rentabilidad si el acierto se mantiene constante."], correct:0,
-      explain:"Con mejor R:R necesitas acertar menos veces para que la cuenta crezca — es la base matemática de por qué el R:R importa tanto como el acierto." },
-
-    { block:"E", q:"Tu capital total es $4,000, pero $1,200 los necesitas disponibles para gastos del próximo mes. ¿Sobre qué base deberías calcular tu riesgo por operación?", opts:[
-        "Sobre los $4,000 completos, ya que es el capital total de la cuenta.",
-        "Sobre $2,800, la parte que podrías perder sin comprometer tus obligaciones.",
-        "Sobre los $1,200, por ser el monto que resulta más conservador.",
-        "Sobre un promedio entre el capital total y el monto comprometido."], correct:1,
-      explain:"El capital arriesgable es solo la porción que no compromete tus obligaciones — confundirlo con el capital total es un error común y costoso." },
-    { block:"E", q:"Llevas 3 operaciones perdedoras seguidas y tu regla de cierre de día es 'máximo 3 pérdidas consecutivas'. ¿Qué deberías hacer, según el propósito real de esa regla?", opts:[
-        "Subir el riesgo en la siguiente operación para recuperar lo perdido.",
-        "Seguir operando con el mismo riesgo; la regla es solo una referencia.",
-        "Detener la operativa por el resto del día, sin hacer una excepción.",
-        "Cambiar de par de divisas y continuar operando con el conteo en cero."], correct:2,
-      explain:"Las reglas de cierre de día existen exactamente para el momento en que más ganas de romperlas — protegerte de ti mismo en una racha." },
-
-    { block:"F", q:"Recibes una señal de compra en XAU/USD. Antes de copiarla, notas que el precio está justo debajo de una resistencia fuerte, en contra de la dirección de la señal. ¿Qué describe mejor esta situación?", opts:[
-        "La señal pierde toda validez de inmediato por tener una resistencia cerca.",
-        "Deberías descartar tu propio análisis frente a cualquier señal recibida.",
-        "Sigues siendo un trader copiador, porque la señal fue tu punto de partida.",
-        "Estás ejerciendo análisis propio, al contrastar la señal con tu contexto."], correct:3,
-      explain:"Usar la señal como punto de partida y contrastarla contra tu propio contexto es exactamente la definición de análisis propio." },
-    { block:"F", q:"Un trader dice: 'si no llega una señal en la primera hora de Londres, siento que estoy perdiendo la oportunidad del día'. ¿Qué sesgo describe mejor esta frase?", opts:[
-        "Dependencia emocional de recibir una señal externa para poder operar.",
-        "Riesgo inconsistente entre una operación y la siguiente del mismo día.",
-        "Ausencia de un criterio de salida propio una vez abierta la operación.",
-        "Exceso de confianza en el propio análisis técnico sobre el gráfico."], correct:0,
-      explain:"La ansiedad por la ausencia de una señal externa es la forma más clara de dependencia emocional de la señal." },
-
-    { block:"G", type:"numeric", unit:"%",
-      q:"Tu cuenta bajó de $3,000 a $2,850 tras una operación perdedora. ¿Qué porcentaje exacto de tu capital representó esa pérdida?",
-      answer:5, tolerance:0.3,
-      explain:"$150 de pérdida ÷ $3,000 de capital = 5%. Siempre conviene leer la pérdida como porcentaje del capital, no solo en dólares." },
-    { block:"G", q:"Abres 4 operaciones el mismo día, cada una arriesgando 1% de tu cuenta, y las 4 siguen abiertas al mismo tiempo. ¿Cuál es tu riesgo agregado real en ese momento?", opts:[
-        "1%, porque cada operación se evalúa por separado de las demás.",
-        "4%, porque el riesgo de operaciones abiertas a la vez se va sumando.",
-        "0.25%, porque el riesgo se reparte entre las cuatro operaciones.",
-        "Depende únicamente de la política interna de cada bróker."], correct:1,
-      explain:"El riesgo por operación es correcto en aislamiento, pero el riesgo agregado de un mismo día se acumula — por eso existe el límite de 'peor día'." },
-    { block:"G", q:"Cierras una operación que en el gráfico parecía ganar exactamente $100, pero tu plataforma muestra solo $91 de ganancia neta. ¿Cuál es la explicación más completa?", opts:[
-        "Un error de la plataforma que suele corregirse en el siguiente cierre.",
-        "El spread se cobra dos veces al momento exacto de cerrar la operación.",
-        "Comisión y/o slippage redujeron el resultado teórico al resultado real.",
-        "Las ganancias de la cuenta se redondean hacia abajo por política del bróker."], correct:2,
-      explain:"El resultado real casi nunca es idéntico al teórico por spread, comisión y slippage — conocerlos evita sorpresas que en realidad son normales." },
-
     { block:"H", q:"El precio sube, supera por 6 pips el máximo previo donde muchos traders tenían su stop de venta, y en menos de dos velas regresa con fuerza por debajo de ese máximo. ¿Qué describe mejor este movimiento?", opts:[
         "Una ruptura de estructura ya confirmada hacia el lado alcista.",
         "Un order block alcista que se formó justo en ese máximo previo.",
         "Ruido de mercado sin ningún significado técnico relevante.",
         "Un barrido de liquidez seguido de una reversión con fuerza."], correct:3,
       explain:"Tocar y superar brevemente un nivel de liquidez, y luego revertir con fuerza, es la firma de un barrido de liquidez, no de una ruptura real." },
-    { block:"H", q:"Justo antes de un movimiento impulsivo bajista muy fuerte, identificas la última vela alcista antes de que el precio cayera con fuerza. ¿Qué es esa vela?", opts:[
-        "Un order block bajista, la huella de esa entrada institucional.",
-        "Una zona de soporte que el precio respetó antes de caer.",
-        "Un retroceso de Fibonacci calculado sobre el impulso bajista.",
-        "Un barrido de liquidez ocurrido sobre un mínimo previo."], correct:0,
-      explain:"Esa última vela de dirección contraria antes del impulso fuerte es, por definición, un order block." },
-    { block:"H", q:"Marcaste correctamente un order block. ¿Qué deberías hacer antes de operar solo por eso?", opts:[
-        "Entrar de inmediato, porque un order block ya es confirmación suficiente.",
-        "Confirmar con el resto del análisis antes de considerarlo una entrada.",
-        "Ignorarlo por completo, ya que los order blocks no son confiables.",
-        "Esperar a que la zona desaparezca del gráfico antes de decidir algo."], correct:1,
-      explain:"Una zona técnica, por sí sola, nunca es una orden de entrada — se confirma con el resto del proceso, igual que cualquier otra zona de interés." },
-
     { block:"I", q:"Un nivel de Fibonacci del 61.8% coincide exactamente con un order block bajista y con una resistencia previa. ¿Cómo se llama esta coincidencia y qué implica?", opts:[
         "Sobreanálisis; entre más herramientas se combinen, peor es la señal.",
         "Ruido estadístico, sin relevancia práctica para la decisión.",
         "Una confluencia técnica, que sugiere una zona de mayor calidad.",
         "Una señal de venta clara, dada la cantidad de coincidencias."], correct:2,
       explain:"Cuando varias razones independientes coinciden en la misma zona, la idea gana calidad — pero sigue siendo análisis, nunca una garantía." },
+    { block:"C", q:"En el gráfico ves máximos en 1950, 1962, 1958, 1971 y mínimos en 1940, 1949, 1955, 1964. ¿Qué estructura describe mejor esta secuencia?", opts:[
+        "Una tendencia alcista, con máximos y mínimos cada vez más altos.",
+        "Un rango lateral, sin una dirección definida en el precio.",
+        "Una tendencia bajista, con máximos y mínimos cada vez más bajos.",
+        "Un barrido de liquidez sobre el máximo más reciente de la serie."], correct:0,
+      explain:"Cada máximo y mínimo es más alto que el anterior — la definición exacta de una estructura alcista (HH/HL)." },
+    { block:"D", type:"numeric", unit:"USD",
+      q:"Tu cuenta tiene $2,000 USD. Decides arriesgar 1.5% en una operación. ¿Cuántos dólares, exactamente, estás dispuesto a perder si el stop loss se ejecuta?",
+      answer:30, tolerance:0.5,
+      explain:"$2,000 × 1.5% = $30. Este número se define antes de tocar el gráfico — no después." },
+    { block:"G", type:"numeric", unit:"%",
+      q:"Tu cuenta bajó de $3,000 a $2,850 tras una operación perdedora. ¿Qué porcentaje exacto de tu capital representó esa pérdida?",
+      answer:5, tolerance:0.3,
+      explain:"$150 de pérdida ÷ $3,000 de capital = 5%. Siempre conviene leer la pérdida como porcentaje del capital, no solo en dólares." },
     { block:"I", q:"Un trader traza una línea de tendencia conectando dos mínimos; otro conecta tres mínimos y dos máximos formando un canal. ¿Qué gana el segundo análisis frente al primero?", opts:[
         "Nada distinto; ambos análisis son igual de válidos en cualquier caso.",
         "La certeza de en qué punto exacto va a girar el precio después.",
         "La eliminación completa del riesgo en la siguiente operación.",
         "Una referencia adicional de los límites probables del movimiento."], correct:3,
       explain:"Un canal aporta un límite adicional de referencia — más contexto, nunca certeza ni eliminación de riesgo." },
-    { block:"I", q:"El precio llega a una zona de confluencia técnica, pero el volumen relativo es notablemente bajo comparado con lo normal para ese instrumento. ¿Qué implica esto?", opts:[
-        "Que la reacción es menos confiable que con un volumen alto en la zona.",
-        "Que la confluencia técnica es suficiente por sí sola, sin más análisis.",
-        "Que el volumen bajo confirma por sí solo la entrada en esa zona.",
-        "Que conviene duplicar el lotaje por la baja participación del momento."], correct:0,
-      explain:"El volumen relativo confirma o pone en duda una zona de interés — bajo volumen resta confiabilidad a la reacción, no la garantiza." },
-
+    { block:"F", q:"Recibes una señal de compra en XAU/USD. Antes de copiarla, notas que el precio está justo debajo de una resistencia fuerte, en contra de la dirección de la señal. ¿Qué describe mejor esta situación?", opts:[
+        "La señal pierde toda validez de inmediato por tener una resistencia cerca.",
+        "Deberías descartar tu propio análisis frente a cualquier señal recibida.",
+        "Sigues siendo un trader copiador, porque la señal fue tu punto de partida.",
+        "Estás ejerciendo análisis propio, al contrastar la señal con tu contexto."], correct:3,
+      explain:"Usar la señal como punto de partida y contrastarla contra tu propio contexto es exactamente la definición de análisis propio." },
+    { block:"E", q:"Tu capital total es $4,000, pero $1,200 los necesitas disponibles para gastos del próximo mes. ¿Sobre qué base deberías calcular tu riesgo por operación?", opts:[
+        "Sobre los $4,000 completos, ya que ese es el capital total de la cuenta.",
+        "Sobre $2,800, lo que no compromete tus obligaciones del próximo mes.",
+        "Sobre los $1,200, que en apariencia parece la opción más conservadora.",
+        "Sobre un promedio entre el capital total y el monto ya comprometido."], correct:1,
+      explain:"El capital arriesgable es solo la porción que no compromete tus obligaciones — confundirlo con el capital total es un error común y costoso." },
     { block:"J", q:"El DXY rompe un máximo importante con fuerza mientras analizas una posible compra en XAU/USD. Según la relación típica entre ambos, ¿qué debería hacer esto en tu análisis?", opts:[
         "No debería importarte, son instrumentos sin relación entre sí.",
         "Sumar contexto en contra de tu idea, dado que suelen moverse opuestos.",
         "Confirmar de inmediato tu compra planeada en el oro, sin más revisión.",
         "Indicarte que conviene cambiar tu operación al DXY en vez del oro."], correct:1,
       explain:"DXY y XAU/USD suelen moverse en direcciones opuestas — un instrumento correlacionado te da una segunda opinión de contexto, nunca la decide por ti." },
+    { block:"G", q:"Abres 4 operaciones el mismo día, cada una arriesgando 1% de tu cuenta, y las 4 siguen abiertas al mismo tiempo. ¿Cuál es tu riesgo agregado real en ese momento?", opts:[
+        "1%, porque cada operación se evalúa por separado de todas las demás.",
+        "4%: el riesgo de operaciones abiertas al mismo tiempo se va sumando.",
+        "0.25%, porque el riesgo se reparte entre las cuatro operaciones abiertas.",
+        "Depende únicamente de la política interna que use cada bróker."], correct:1,
+      explain:"El riesgo por operación es correcto en aislamiento, pero el riesgo agregado de un mismo día se acumula — por eso existe el límite de 'peor día'." },
+    { block:"H", q:"Justo antes de un movimiento impulsivo bajista muy fuerte, identificas la última vela alcista antes de que el precio cayera con fuerza. ¿Qué es esa vela?", opts:[
+        "Un order block bajista, la huella de esa entrada institucional.",
+        "Una zona de soporte que el precio respetó antes de caer.",
+        "Un retroceso de Fibonacci calculado sobre el impulso bajista.",
+        "Un barrido de liquidez ocurrido sobre un mínimo previo."], correct:0,
+      explain:"Esa última vela de dirección contraria antes del impulso fuerte es, por definición, un order block." },
+    { block:"C", q:"El precio rompe una resistencia clara, cierra tres velas por encima de ella, y en el siguiente retroceso esa misma zona detiene la caída y el precio rebota. ¿Qué describe este cambio de rol?", opts:[
+        "Un order block bajista que se formó justo encima de esa resistencia.",
+        "Un cambio de polaridad: la resistencia ahora actúa como soporte del precio.",
+        "Un barrido de liquidez que finalmente falló en revertir el precio ahí.",
+        "Un spread inusualmente amplio que distorsionó la lectura de ese nivel."], correct:1,
+      explain:"Es el fenómeno de cambio de polaridad: una zona que frenaba la subida ahora frena la caída, una vez que el precio la superó con convicción." },
+    { block:"D", type:"numeric", unit:"lotes",
+      q:"Capital de $5,000, riesgo de 2% por operación, stop loss de 40 pips (valor de pip $10 por lote estándar). Usa: lotes = riesgo en $ ÷ (pips de stop × valor de pip por lote). ¿Cuál es el tamaño de posición en lotes estándar?",
+      answer:0.25, tolerance:0.02,
+      explain:"Riesgo en $ = $5,000 × 2% = $100. Lotes = $100 ÷ (40 × $10) = $100 ÷ $400 = 0.25 lotes." },
+    { block:"B", q:"Son las 14:30 UTC. Según los horarios de sesión, ¿qué mercados están probablemente activos al mismo tiempo?", opts:[
+        "Sídney y Tokio, por ser las dos sesiones asiáticas del día.",
+        "Ningún mercado, ya que a esa hora se considera cierre general.",
+        "Londres y Nueva York, coincidiendo en su ventana de solape.",
+        "Solo Tokio, que sigue activo hasta media tarde en Londres."], correct:2,
+      explain:"Londres (08:00–17:00 UTC) y Nueva York (13:00–22:00 UTC) se solapan justo en ese horario — la ventana de mayor actividad del día." },
+    { block:"K", q:"Marcas tu zona, ves una vela de rechazo válida, y ejecutas la compra en cuanto sientes que 'ya es momento', sin fijar antes ningún nivel exacto de entrada. ¿Qué paso de tu modelo te estás saltando?", opts:[
+        "El gatillo, porque la entrada depende de una condición objetiva y verificable.",
+        "El contexto, porque la sesión de mercado deja de importar tras la confirmación.",
+        "La zona, porque una entrada válida no necesita ubicarse en un nivel específico.",
+        "La invalidación, porque ese nivel se define solo después de haber entrado ya."], correct:0,
+      explain:"El gatillo tiene que ser una condición objetiva y verificable — 'sentir que ya es momento' no es un nivel que otra persona pueda confirmar en el gráfico." },
+    { block:"A", type:"numeric", unit:"USD",
+      q:"Operas GBP/JPY con un lote estándar. En pares con yen, un pip equivale al segundo decimal. Si el precio se mueve 18 pips a tu favor y el valor por pip para ese par y tamaño es de $9 USD, ¿cuántos dólares ganaste?",
+      answer:162, tolerance:5,
+      explain:"18 pips × $9 por pip = $162. El valor del pip cambia según el par y el tamaño de posición — por eso siempre lo confirmas antes de operar." },
+    { block:"B", q:"A las 23:00 UTC notas volumen notablemente bajo y un spread más amplio de lo normal. ¿Qué acción es más consistente con buena gestión de riesgo?", opts:[
+        "Aumentar el lotaje planeado para compensar el spread amplio del momento.",
+        "Ejecutar igual sin ajustar nada; el volumen no cambia el riesgo real.",
+        "Cambiar de estrategia por completo mientras dure ese horario del día.",
+        "Subir tu exigencia con la señal antes de arriesgar capital en ese momento."], correct:3,
+      explain:"El contexto de sesión no decide por ti, pero sí debe subir tu exigencia antes de arriesgar capital en condiciones de baja liquidez." },
+    { block:"H", q:"Marcaste correctamente un order block. ¿Qué deberías hacer antes de operar solo por eso?", opts:[
+        "Entrar de inmediato, porque un order block ya es confirmación suficiente.",
+        "Confirmar con el resto del análisis antes de considerarlo una entrada.",
+        "Ignorarlo por completo, ya que los order blocks no son confiables.",
+        "Esperar a que la zona desaparezca del gráfico antes de decidir algo."], correct:1,
+      explain:"Una zona técnica, por sí sola, nunca es una orden de entrada — se confirma con el resto del proceso, igual que cualquier otra zona de interés." },
+    { block:"I", q:"El precio llega a una zona de confluencia técnica, pero el volumen relativo es notablemente bajo comparado con lo normal para ese instrumento. ¿Qué implica esto?", opts:[
+        "Que la reacción es menos confiable que con un volumen alto en la zona.",
+        "Que la confluencia técnica es suficiente por sí sola, sin más análisis.",
+        "Que el volumen bajo confirma por sí solo la entrada en esa zona.",
+        "Que conviene duplicar el lotaje por la baja participación del momento."], correct:0,
+      explain:"El volumen relativo confirma o pone en duda una zona de interés — bajo volumen resta confiabilidad a la reacción, no la garantiza." },
+    { block:"C", q:"Una vela con cuerpo pequeño y una mecha inferior mucho más larga que el cuerpo, cerca del final de una caída, generalmente indica:", opts:[
+        "Continuación fuerte de la tendencia bajista en curso.",
+        "Que el mercado permaneció cerrado durante ese periodo.",
+        "Rechazo de precios más bajos y posible presión compradora.",
+        "Un error de graficación en la plataforma que se usa."], correct:2,
+      explain:"La mecha larga muestra que el precio bajó pero fue rechazado con fuerza — los compradores recuperaron el control antes del cierre." },
+    { block:"E", q:"Llevas 3 operaciones perdedoras seguidas y tu regla de cierre de día es 'máximo 3 pérdidas consecutivas'. ¿Qué deberías hacer, según el propósito real de esa regla?", opts:[
+        "Subir el riesgo en la siguiente operación para recuperar lo perdido.",
+        "Seguir operando con el mismo riesgo; la regla es solo una referencia.",
+        "Detener la operativa por el resto del día, sin hacer una excepción.",
+        "Cambiar de par de divisas y continuar operando con el conteo en cero."], correct:2,
+      explain:"Las reglas de cierre de día existen exactamente para el momento en que más ganas de romperlas — protegerte de ti mismo en una racha." },
+    { block:"K", q:"Fijaste el punto de invalidación unos puntos por debajo del order block identificado. El precio se acerca a ese nivel y, antes de tocarlo, lo mueves más abajo porque 'todavía puede reaccionar'. ¿Qué problema tiene esa decisión?", opts:[
+        "Ninguno: la invalidación puede ajustarse con libertad hasta el momento del gatillo.",
+        "Deja de proteger tu análisis: una invalidación que cambia no cumple ninguna función.",
+        "Mejora el modelo, porque le da más espacio de reacción a la idea original todavía.",
+        "Solo afecta al stop loss, y no a ninguna otra parte del modelo de entrada."], correct:1,
+      explain:"La invalidación solo protege tu análisis si se respeta exactamente donde se fijó — moverla cuando el precio se acerca es el mismo error que mover un stop loss a sentimiento." },
+    { block:"G", q:"Cierras una operación que en el gráfico parecía ganar exactamente $100, pero tu plataforma muestra solo $91 de ganancia neta. ¿Cuál es la explicación más completa?", opts:[
+        "Un error de la plataforma que suele corregirse en el siguiente cierre.",
+        "El spread se cobra dos veces al momento exacto de cerrar la operación.",
+        "Comisión y/o slippage redujeron el resultado teórico al resultado real.",
+        "Las ganancias de la cuenta se redondean hacia abajo por política del bróker."], correct:2,
+      explain:"El resultado real casi nunca es idéntico al teórico por spread, comisión y slippage — conocerlos evita sorpresas que en realidad son normales." },
+    { block:"F", q:"Un trader dice: 'si no llega una señal en la primera hora de Londres, siento que estoy perdiendo la oportunidad del día'. ¿Qué sesgo describe mejor esta frase?", opts:[
+        "Dependencia emocional de recibir una señal externa para poder operar.",
+        "Riesgo inconsistente entre una operación y la siguiente del mismo día.",
+        "Ausencia de un criterio de salida propio una vez abierta la operación.",
+        "Exceso de confianza en el propio análisis técnico sobre el gráfico."], correct:0,
+      explain:"La ansiedad por la ausencia de una señal externa es la forma más clara de dependencia emocional de la señal." },
+    { block:"A", q:"El spread de XAU/USD pasa de 20 a 65 puntos en segundos, sin ninguna noticia programada. ¿Cuál es la explicación más probable?", opts:[
+        "El bróker decidió subir permanentemente su comisión por operación.",
+        "Hubo una caída temporal de liquidez disponible en ese instante del mercado.",
+        "El precio del oro subió, y una subida de precio por sí sola amplía el spread.",
+        "Es un error de la plataforma que se corrige solo en los próximos minutos."], correct:1,
+      explain:"El spread se amplía cuando baja la liquidez disponible en ese instante — es contexto de mercado, no un cambio de tarifa." },
     { block:"J", q:"Antes de ejecutar, revisas tu checklist operativo y notas que moviste tu stop varias veces 'a sentimiento' durante el análisis. Según el propósito real del checklist, ¿qué debería pasar?", opts:[
         "Ejecutar de todas formas, ya que revisaste las demás preguntas.",
         "Reducir el lotaje a la mitad y ejecutar la operación de todas formas.",
         "No ejecutar hasta definir un stop técnico real, no emocional.",
         "Tratarlo como una formalidad opcional dentro del checklist."], correct:2,
-      explain:"El checklist existe para detener exactamente este tipo de operación — un stop movido a sentimiento ya no es un stop técnico." }
+      explain:"El checklist existe para detener exactamente este tipo de operación — un stop movido a sentimiento ya no es un stop técnico." },
+    { block:"D", q:"Colocaste un stop loss de 20 pips y calculaste tu lotaje para arriesgar $40. A mitad de la operación mueves el stop a 35 pips 'porque crees que va a regresar'. ¿Qué pasó con tu riesgo real?", opts:[
+        "Sigue siendo $40, porque el lotaje de la operación no cambió.",
+        "Disminuyó, porque el precio ahora tiene más espacio para moverse.",
+        "No se puede saber sin conocer el resultado final de la operación.",
+        "Aumentó, porque el mismo lotaje ahora cubre una distancia de stop mayor."], correct:3,
+      explain:"El riesgo en dólares depende del lotaje Y de la distancia del stop. Si el lotaje no cambia pero el stop se aleja, el riesgo real sube por encima de lo planeado." },
+    { block:"J", q:"Abres una compra en XAU/USD y, sin darte cuenta, otra compra en XAG/USD (plata), instrumentos que suelen moverse en la misma dirección. ¿Qué implica esto para tu riesgo real?", opts:[
+      "El riesgo se reduce, porque tienes dos oportunidades distintas de ganar.",
+      "El riesgo no cambia, porque cada instrumento se opera por separado en el bróker.",
+      "El riesgo agregado real es mayor, porque ambas operaciones tienden a moverse juntas.",
+      "El riesgo solo importa si ambas operaciones usan exactamente el mismo lotaje."], correct:2,
+    explain:"Dos instrumentos correlacionados no son dos apuestas independientes: si el mercado se mueve en contra, ambas posiciones pierden a la vez — el riesgo real agregado es mayor de lo que parece en cada operación por separado." },
+    { block:"B", type:"numeric", unit:"horas",
+    q:"La sesión de Tokio corre de 00:00 a 09:00 UTC y la sesión de Londres de 08:00 a 17:00 UTC. ¿Durante cuántas horas exactas se solapan ambas sesiones?",
+    answer:1, tolerance:0,
+    explain:"Tokio cierra a las 09:00 UTC y Londres abre a las 08:00 UTC — el único traslape posible es de 08:00 a 09:00, es decir, 1 hora." },
+    { block:"C", q:"En una tendencia bajista, el precio rompe por primera vez un máximo menor (rompiendo la secuencia de máximos y mínimos descendentes), aunque todavía no supera el máximo mayor de la tendencia. ¿Qué señal técnica describe mejor este evento?", opts:[
+      "Una ruptura de estructura (BOS) que confirma la continuación bajista.",
+      "Un barrido de liquidez que no tiene ningún significado direccional.",
+      "Un cambio de carácter (CHoCH): la primera señal de que el vendedor pierde fuerza.",
+      "Una señal de venta inmediata, sin necesidad de ninguna otra confirmación."], correct:2,
+    explain:"Romper el primer máximo menor dentro de una tendencia bajista es la definición de un cambio de carácter (CHoCH) — una advertencia temprana, no todavía una reversión confirmada." },
+    { block:"H", q:"El precio regresa a un order block alcista por segunda vez, reacciona con una mecha pequeña y sigue cayendo minutos después, cerrando por debajo de la zona. ¿Qué concepto describe este comportamiento del order block?", opts:[
+      "El order block se fortalece cada vez que el precio lo vuelve a tocar.",
+      "El order block fue mitigado: perdió la fuerza que tenía la primera vez.",
+      "El order block cambia de bajista a alcista en cada segunda visita del precio.",
+      "El order block solo es válido si el precio lo toca exactamente una vez."], correct:1,
+    explain:"Cada visita a una zona de order block puede ir agotando las órdenes pendientes que la sostenían — cuando ya no reacciona con fuerza, se considera mitigado." },
+    { block:"G", type:"numeric", unit:"USD",
+    q:"Cierras 3 operaciones seguidas cuya suma de ganancias teóricas (antes de costos) fue de $220. Cada una perdió $3.50 de esa ganancia por comisión y slippage. ¿Cuál fue tu ganancia neta real, en dólares?",
+    answer:209.5, tolerance:1,
+    explain:"Costos totales = $3.50 × 3 = $10.50. Ganancia neta = $220 − $10.50 = $209.50." },
+    { block:"D", q:"Dos operaciones arriesgan el mismo monto en dólares. La Operación 1 tiene R:R de 1:1.5 y la Operación 2 de 1:3, con la misma probabilidad de acierto. ¿Qué es correcto a largo plazo?", opts:[
+        "La Operación 2 puede ser rentable acertando un porcentaje menor de veces.",
+        "Ambas son igual de rentables a largo plazo, porque el riesgo es idéntico.",
+        "La Operación 1 es mejor, porque cierra sus ganancias con más rapidez.",
+        "El R:R no influye en la rentabilidad si el acierto se mantiene constante."], correct:0,
+      explain:"Con mejor R:R necesitas acertar menos veces para que la cuenta crezca — es la base matemática de por qué el R:R importa tanto como el acierto." },
+    { block:"K", q:"Ya identificaste una zona (order block alcista) en tu análisis de XAUUSD, pero el precio la toca y se queda con velas pequeñas e indecisas, sin romper ningún nivel menor a favor. Según tu modelo, ¿qué corresponde hacer?", opts:[
+        "Definir ya el gatillo de entrada, porque la zona identificada resulta suficiente.",
+        "Descartar la zona por completo y buscar otra distinta en el gráfico de inmediato.",
+        "Duplicar el lotaje planeado, ya que la zona sigue siendo técnicamente válida.",
+        "Esperar sin operar, porque el paso de confirmación todavía no se ha cumplido."], correct:3,
+      explain:"Llegar a la zona no es suficiente: sin una señal de confirmación dentro de ella, el modelo indica que todavía no hay entrada, sin importar qué tan buena se vea la zona." },
+    { block:"E", q:"Después de una pérdida, sientes el impulso de abrir otra operación de inmediato 'para recuperarla', aunque no tengas ninguna señal según tu modelo. ¿Qué principio de disciplina se aplica aquí?", opts:[
+      "Aumentar el riesgo en la siguiente operación para compensar la pérdida ya ocurrida.",
+      "Operar solo cuando el modelo lo indica, sin importar el resultado anterior.",
+      "Cambiar de instrumento para evitar que la pérdida se repita en el mismo par.",
+      "Duplicar el análisis técnico antes de decidir si se recupera la pérdida."], correct:1,
+    explain:"El impulso de 'recuperar' una pérdida de inmediato es la entrada emocional por excelencia; el modelo decide si hay entrada, no el resultado de la operación anterior." },
+    { block:"I", q:"En el gráfico de 1 hora identificas una zona de entrada válida, pero en el gráfico diario esa misma zona coincide con una resistencia mayor sin romper. ¿Qué debería pesar más en tu decisión final?", opts:[
+      "Solo el gráfico de 1 hora, porque es la temporalidad donde vas a ejecutar.",
+      "Ninguno de los dos, porque las confluencias entre temporalidades no son relevantes.",
+      "El gráfico diario únicamente si coincide también con un indicador de momentum.",
+      "El contexto de la temporalidad mayor, que puede invalidar o debilitar la idea menor."], correct:3,
+    explain:"Una temporalidad mayor da el contexto dentro del cual opera la menor — una resistencia importante ahí puede debilitar o invalidar una idea que en 1 hora se ve perfecta." },
+    { block:"A", q:"Tu bróker aplica un nivel de stop-out del 50%. Tu margen usado sube y tu nivel de margen (equity/margen) cae a 55%, sin que hayas cerrado nada. ¿Qué describe mejor tu situación?", opts:[
+      "Estás a salvo de cierre forzoso porque el nivel de margen es mayor a cero.",
+      "El nivel de margen no tiene relación con el cierre forzoso de posiciones.",
+      "El bróker ya debió haber cerrado tus posiciones desde que tocaste el 55%.",
+      "Estás cerca del cierre forzoso, que ese bróker aplica justo al llegar al 50%."], correct:3,
+    explain:"El nivel de stop-out es el punto en el que el bróker cierra posiciones automáticamente para proteger tu cuenta y la suya; estar por encima todavía te deja margen, pero cada vez más cerca del cierre forzoso." },
+    { block:"F", q:"Recibes una señal de venta y, al revisar tu gráfico, solo te fijas en las razones que la apoyan, ignorando una resistencia rota recientemente que contradice la idea. ¿Qué error describe mejor esta conducta?", opts:[
+      "Sesgo de confirmación: buscar solo la evidencia que respalda una idea ya aceptada.",
+      "Análisis propio bien aplicado, porque se usó el gráfico como referencia.",
+      "Gestión de riesgo deficiente, sin relación con el análisis técnico realizado.",
+      "Un error de ejecución en la plataforma al momento de revisar el gráfico."], correct:0,
+    explain:"Buscar selectivamente la evidencia que confirma una señal ya aceptada, ignorando lo que la contradice, es la definición exacta de sesgo de confirmación." },
+    { block:"K", q:"Construyes tu modelo exigiendo, a la vez, los tres criterios de confirmación: vela de rechazo, ruptura de estructura menor y testeo con reacción. ¿Qué consecuencia es más probable con esa exigencia?", opts:[
+        "Ninguna entrada cumple las tres condiciones a la vez, y el modelo deja de usarse.",
+        "El riesgo por operación sube de forma directa al exigir más condiciones a la vez.",
+        "Rara vez vas a encontrar una entrada así, o forzarás la lectura para justificarla.",
+        "El modelo se vuelve mucho más objetivo cuantos más criterios exijas a la vez."], correct:2,
+      explain:"Exigir demasiadas condiciones a la vez casi nunca se cumple de forma honesta — el resultado habitual es no operar casi nunca, o forzar la lectura para justificar la entrada que ya se quería hacer." },
+    { block:"B", q:"Es viernes 22:30 UTC, minutos antes del cierre semanal del mercado. Ves una señal de entrada aparentemente perfecta. ¿Qué riesgo adicional trae operar justo en este horario?", opts:[
+      "Ninguno adicional, el cierre semanal no afecta la ejecución de órdenes.",
+      "El gap del domingo puede mover el precio en tu contra sin que puedas reaccionar.",
+      "El spread se vuelve más angosto por la baja actividad de ese horario.",
+      "Tu bróker cierra por su cuenta cualquier operación abierta antes del cierre."], correct:1,
+    explain:"Al cierre del mercado, una posición abierta queda expuesta al gap de apertura del domingo — el precio puede saltar sin que haya oportunidad de ajustar el stop mientras el mercado estuvo cerrado." },
+    { block:"G", q:"Haces 15 operaciones en un día sobre un instrumento donde el spread normal es de 1.5 pips, pero por baja liquidez del momento pagas 3 pips de spread en cada una. Aunque cada diferencia parece pequeña, ¿qué error de riesgo describe mejor este patrón acumulado?", opts:[
+      "Ninguno, el spread adicional se recupera con operaciones ganadoras.",
+      "El costo extra se multiplica por las operaciones y erosiona el resultado.",
+      "El spread más alto solo afecta a las operaciones que terminan perdiendo.",
+      "Es un error que debe reportarse de forma individual ante el bróker."], correct:1,
+    explain:"Un costo pequeño por operación deja de ser pequeño cuando se repite 15 veces en el mismo día — el spread extra se multiplica y erosiona el resultado total, no solo el de una operación." },
+    { block:"J", type:"numeric", unit:"%",
+    q:"Tu regla de riesgo agregado diario es no superar el 4% de tu cuenta. Ya llevas dos operaciones abiertas, cada una arriesgando 1.25% de tu cuenta. ¿Qué porcentaje de riesgo diario te queda disponible antes de tocar el límite?",
+    answer:1.5, tolerance:0.2,
+    explain:"Riesgo ya comprometido = 1.25% × 2 = 2.5%. Disponible = 4% − 2.5% = 1.5%." },
+    { block:"H", q:"En el gráfico ves tres máximos casi al mismo nivel, formando una línea horizontal clara. Según el concepto de liquidez, ¿qué es más probable que exista justo por encima de esos máximos?", opts:[
+      "Un vacío de precio sin ningún interés de otros participantes del mercado.",
+      "Una zona de descuento ideal para abrir una compra sin ninguna confirmación.",
+      "Una concentración de stops de venta y órdenes de compra en ese nivel.",
+      "Un error de graficación que suele desaparecer al cambiar de temporalidad."], correct:2,
+    explain:"Máximos iguales acumulan stops de quienes vendieron ahí y órdenes de compra de quienes esperan una ruptura — esa acumulación es lo que hace atractivo ese nivel para un barrido de liquidez." },
+    { block:"D", type:"numeric", unit:"lotes",
+    q:"Capital de $8,000, arriesgas 0.75% en una operación con stop loss de 25 pips en EUR/USD (valor de pip $10 por lote estándar). Usa: lotes = riesgo en $ ÷ (pips de stop × valor de pip por lote). ¿Cuántos lotes estándar debes usar?",
+    answer:0.24, tolerance:0.02,
+    explain:"Riesgo en $ = $8,000 × 0.75% = $60. Lotes = $60 ÷ (25 × $10) = $60 ÷ $250 = 0.24 lotes." },
+    { block:"C", q:"Una vela forma una mecha larga que perfora un mínimo previo evidente, pero el cuerpo de la vela cierra muy por encima de ese mínimo, dentro del rango anterior. ¿Qué interpretación es más consistente con el resto del modelo?", opts:[
+      "El precio confirmó una ruptura bajista válida y debe continuar cayendo.",
+      "La vela indica que el bróker manipuló el precio de forma directa.",
+      "El cierre dentro del rango no aporta ninguna información útil.",
+      "La mecha probablemente barrió liquidez y fue rechazada antes del cierre."], correct:3,
+    explain:"Un cierre que regresa dentro del rango después de perforar un mínimo con la mecha es la firma típica de un barrido de liquidez seguido de rechazo, no de una ruptura confirmada." },
+    { block:"I", q:"El precio marca un nuevo mínimo, pero el RSI marca un mínimo más alto que el anterior, justo sobre una zona de soporte relevante. ¿Cómo se llama esta coincidencia y qué aporta?", opts:[
+      "Divergencia alcista con soporte: una confluencia que suma calidad a la zona.",
+      "Un error del indicador que debe ignorarse frente al precio real, sin más.",
+      "Una señal de venta clara, ya que el precio sigue en mínimos más bajos.",
+      "Una coincidencia sin peso, porque el RSI no debe combinarse con soporte."], correct:0,
+    explain:"Cuando el precio y el indicador se mueven en direcciones distintas cerca de una zona técnica relevante, la coincidencia suma una razón adicional e independiente — eso es exactamente una confluencia." },
+    { block:"F", q:"Un trader revisa cada señal recibida contra su propio análisis de estructura, riesgo y contexto, y a veces decide no tomarla aunque provenga de una fuente confiable. ¿Qué describe mejor esta forma de operar?", opts:[
+      "Desconfianza injustificada hacia una fuente que ya ha demostrado ser confiable.",
+      "Trading copiador disfrazado de análisis propio, sin ningún criterio real detrás.",
+      "Una pérdida de tiempo, ya que la fuente confiable ya hizo el análisis necesario.",
+      "Uso saludable de la señal como insumo, no como orden automática de entrada."], correct:3,
+    explain:"Tratar la señal como un insumo más — que se contrasta contra el propio análisis y puede descartarse — es exactamente lo que distingue el análisis propio del trading copiador." },
+    { block:"E", q:"Te sientes muy seguro de una operación y decides arriesgar 4% en vez de tu 1% habitual, 'porque esta vez es diferente'. Tras repetir varias veces este patrón, ¿qué es lo más probable que ocurra a tu cuenta?", opts:[
+      "Nada distinto, mientras el análisis técnico detrás de la operación sea correcto.",
+      "Mejora de forma sostenida, porque el mayor riesgo refleja mayor convicción real.",
+      "Una sola operación en contra puede borrar semanas de ganancias consistentes.",
+      "El riesgo variable no afecta el resultado si el R:R se mantiene igual."], correct:2,
+    explain:"La confianza no cambia la probabilidad real de acierto; variar el riesgo según qué tan seguro te sientes expone la cuenta entera a una sola operación en contra." },
+    { block:"A", q:"Operas 0.10 lotes en EUR/USD, donde el valor de pip para 1 lote estándar es $10. Cambias a 0.50 lotes en la misma operación futura. ¿Qué le pasa al valor de cada pip?", opts:[
+      "Aumenta en la misma proporción que aumentó el tamaño de la posición.",
+      "No cambia, porque el valor del pip depende solo del par de divisas.",
+      "Se reduce a la mitad, porque el lotaje bajó respecto al estándar.",
+      "Solo se puede calcular usando el spread del bróker en ese momento."], correct:0,
+    explain:"El valor del pip es proporcional al tamaño de la posición: si el lotaje sube de 0.10 a 0.50 (5 veces), el valor de cada pip también se multiplica por 5." },
   ];
 
   // ---------------- state ----------------
@@ -1038,12 +1167,30 @@
     }
     nameInput.style.borderColor = "";
     studentName = typed;
-    screenCover.hidden = true;
-    screenQuiz.hidden = false;
-    idx = 0;
-    answers.fill(null);
-    renderQuestion();
-    window.scrollTo(0,0);
+
+    var btn = this;
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var playedPulse = false;
+    if (!btn.classList.contains("active")){
+      btn.classList.add("active");
+      playedPulse = true;
+      setTimeout(function(){ btn.classList.remove("active"); }, 2000);
+    }
+
+    function startQuiz(){
+      screenCover.hidden = true;
+      screenQuiz.hidden = false;
+      idx = 0;
+      answers.fill(null);
+      renderQuestion();
+      window.scrollTo(0,0);
+    }
+
+    if (playedPulse && !reduceMotion){
+      setTimeout(startQuiz, 320);
+    } else {
+      startQuiz();
+    }
   });
 
   function renderQuestion(){
