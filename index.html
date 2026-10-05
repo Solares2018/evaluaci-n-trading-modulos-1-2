@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Evaluación de César</title>
+<title>Evaluación Módulo 4 · César</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,560;0,9..144,680;1,9..144,480;1,9..144,600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -237,6 +237,38 @@
     box-shadow:var(--shadow);
   }
   .btn-primary:hover{ background:linear-gradient(135deg, var(--accent-btn), var(--accent-btn-strong)); }
+
+  /* ---- Módulo 4: retroalimentación ampliada + revisión de errores ---- */
+  .fb-body{ display:flex; flex-direction:column; gap:10px; min-width:0; }
+  .fb-body p{ margin:0; }
+  .fb-tag{
+    display:inline-block; margin-right:8px;
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.09em; text-transform:uppercase;
+    font-weight:600; color:var(--ink-faint);
+  }
+  .fb-correct{
+    padding:9px 12px; border-radius:8px;
+    background:color-mix(in srgb, var(--good) 10%, transparent);
+    border-left:3px solid var(--good);
+  }
+  .fb-correct .fb-tag{ color:var(--good); display:block; margin-bottom:3px; }
+  .review-list{ display:flex; flex-direction:column; gap:12px; margin-block-end:8px; }
+  .review-item{
+    background:var(--surface-2); border:1px solid var(--border);
+    border-left:3px solid var(--bad); border-radius:10px;
+    padding:14px 16px; display:flex; flex-direction:column; gap:8px;
+  }
+  .review-item h4{ margin:0; font-size:14px; line-height:1.4; color:var(--ink); font-weight:600; }
+  .review-item p{ margin:0; font-size:13.5px; line-height:1.5; color:var(--ink-muted); }
+  .review-item .ri-meta{ font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent2); font-weight:600; }
+  .review-item .ri-yours b{ color:var(--bad); }
+  .review-item .ri-right b{ color:var(--good); }
+  .review-ok{
+    background:color-mix(in srgb, var(--good) 10%, transparent);
+    border:1px solid color-mix(in srgb, var(--good) 40%, var(--border));
+    border-radius:10px; padding:14px 16px; font-size:14px; color:var(--ink-muted);
+  }
+
   .btn-primary.active{ animation: heroBtnPulse .5s ease; }
   @keyframes heroBtnPulse{
     0%{ transform:scale(1); box-shadow:0 0 0 0 color-mix(in srgb, var(--accent-btn) 55%, transparent), var(--shadow); }
@@ -705,15 +737,15 @@
 
   <!-- ============ COVER ============ -->
   <section id="screen-cover">
-    <p class="eyebrow">Evaluación · Semanas 1–3</p>
-    <h1 class="hero-title">Hoy no copias una señal.<br>Hoy demuestras criterio.</h1>
-    <p class="hero-sub">Esto no es un examen de memoria. Vas a usar, en un solo lugar, todo lo construido desde la Semana 1: mecánica de mercado, contexto de sesiones, estructura de precio, gestión de riesgo con números reales, tu plan, el vocabulario institucional de la Semana 2 — y el diseño de tu propio modelo de entrada de la Semana 3. Hay escenarios y hay cálculo: no basta con reconocer la definición.</p>
+    <p class="eyebrow">Evaluación · Módulo 4</p>
+    <h1 class="hero-title">Hoy no repites lo que leíste.<br>Hoy demuestras que lo entiendes.</h1>
+    <p class="hero-sub">Esta evaluación cubre únicamente el Módulo 4: backtesting con criterio. No hay preguntas de definición simple: vas a detectar el sesgo de retrospectiva en escenarios, decidir qué hacer vela por vela, calcular expectativa y rachas en R y en dinero, y tomar decisiones con los números de una bitácora. Cuando falles una, la retroalimentación te dice cuál era la respuesta correcta, por qué, y por qué la que elegiste no funciona.</p>
 
     <div class="hero-meta">
-      <span class="meta-chip"><b id="meta-total">50</b> preguntas</span>
-      <span class="meta-chip"><b>11</b> bloques · A–K</span>
-      <span class="meta-chip">Incluye cálculos de riesgo</span>
-      <span class="meta-chip">Sin cronómetro</span>
+      <span class="meta-chip"><b id="meta-total">25</b> preguntas</span>
+      <span class="meta-chip"><b>5</b> bloques · conceptos 44–47 y tarea</span>
+      <span class="meta-chip">5 cálculos en R y %</span>
+      <span class="meta-chip">Retroalimentación en cada respuesta</span>
     </div>
 
     <svg class="candles" viewBox="0 0 340 46" width="100%" height="46" preserveAspectRatio="xMinYMid meet" aria-hidden="true">
@@ -752,8 +784,8 @@
   <section id="screen-quiz" hidden>
     <div class="progress-wrap">
       <div class="progress-labels">
-        <span id="progress-text">Pregunta 1 de 27</span>
-        <span id="progress-block">Bloque A</span>
+        <span id="progress-text">Pregunta 1 de 25</span>
+        <span id="progress-block">Concepto 44</span>
       </div>
       <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
     </div>
@@ -767,20 +799,24 @@
     <div class="result-ticket">
       <div class="result-top">
         <div>
-          <div class="result-score" id="result-score">0<span>/27</span></div>
+          <div class="result-score" id="result-score">0<span>/25</span></div>
           <div class="result-pct" id="result-pct">0% de respuestas correctas</div>
         </div>
         <div class="verdict" id="result-verdict"></div>
       </div>
     </div>
 
-    <h2 class="section-heading">Desempeño por bloque</h2>
-    <p class="section-note">Cada barra es tu porcentaje de aciertos en ese bloque. La línea punteada marca 70% — el umbral que consideramos dominio sólido del bloque.</p>
+    <h2 class="section-heading">Desempeño por concepto</h2>
+    <p class="section-note">Cada barra es tu porcentaje de aciertos en ese concepto. La línea punteada marca 70% — el umbral que consideramos dominio sólido.</p>
     <div class="chart" id="chart"></div>
     <div class="chart-legend"><span class="swatch"></span> Umbral de dominio (70%)</div>
 
+    <h2 class="section-heading">Revisión de tus errores</h2>
+    <p class="section-note">Cada pregunta que fallaste, con tu respuesta, la respuesta correcta y la razón. Léelas antes de la próxima sesión: aprender de un error vale más que acertar de casualidad.</p>
+    <div class="review-list" id="review-list"></div>
+
     <h2 class="section-heading">Retroalimentación para mejorar</h2>
-    <p class="section-note">Esto no es una nota final — es el mapa de qué repasar antes de la próxima sesión en vivo.</p>
+    <p class="section-note">Esto no es una nota final — es el mapa de qué concepto repasar antes de la próxima sesión en vivo.</p>
     <div class="feedback-list" id="feedback-list"></div>
 
     <p class="section-note" id="send-note">Este resultado no se guarda solo — envíaselo a tu mentor con el botón de abajo.</p>
@@ -791,7 +827,7 @@
     <button class="btn btn-ghost" id="btn-restart" type="button" style="margin-block-start:14px;">Repetir evaluación</button>
   </section>
 
-  <footer class="foot">Lic. Pablo Solares Aguilar — Programa de 3 meses, mentoría 1 a 1 · Evaluación de Semanas 1–3</footer>
+  <footer class="foot">Lic. Pablo Solares Aguilar — Programa de 3 meses, mentoría 1 a 1 · Evaluación del Módulo 4</footer>
 </div>
 
 <script>
@@ -808,306 +844,447 @@
 
   // ---------------- question bank (harder: scenarios + real calculations) ----------------
   const BLOCKS = {
-    A: { name: "Mecánica básica del mercado", doc: "Semana 1 — Bloque A" },
-    B: { name: "Contexto de mercado (Sesiones)", doc: "Semana 1 — Bloque B" },
-    C: { name: "Estructura de precio", doc: "Semana 1 — Bloque C" },
-    D: { name: "Gestión de riesgo", doc: "Semana 1 — Bloque D" },
-    E: { name: "Plan y disciplina", doc: "Semana 1 — Bloque E" },
-    F: { name: "Señal vs. análisis propio", doc: "Semana 1 — Bloque F" },
-    G: { name: "Costos y errores de riesgo", doc: "Semana 2 — Bloque G" },
-    H: { name: "Liquidez y Order Blocks", doc: "Semana 2 — Bloque H" },
-    I: { name: "Confluencias técnicas", doc: "Semana 2 — Bloque I" },
-    J: { name: "Correlaciones y disciplina", doc: "Semana 2 — Bloque J" },
-    K: { name: "Diseño del modelo de entrada", doc: "Semana 3 — Bloque K" }
+    "44": { label:"Concepto 44", name:"Sesgo de retrospectiva", doc:"Módulo 4 — Concepto 44" },
+    "45": { label:"Concepto 45", name:"Backtesting barra por barra", doc:"Módulo 4 — Concepto 45" },
+    "46": { label:"Concepto 46", name:"R, winrate y expectativa", doc:"Módulo 4 — Concepto 46" },
+    "47": { label:"Concepto 47", name:"Racha máxima y drawdown", doc:"Módulo 4 — Concepto 47" },
+    "T":  { label:"Tarea de la semana", name:"Bitácora y decisión", doc:"Módulo 4 — Tarea y plantilla de bitácora" }
   };
-  const BLOCK_ORDER = ["A","B","C","D","E","F","G","H","I","J","K"];
+  const BLOCK_ORDER = ["44","45","46","47","T"];
 
 const QUESTIONS = [
-    { block:"A", q:"Tu bróker ofrece apalancamiento 1:500. Usas $200 de margen para controlar $100,000 de exposición. ¿Qué afirmación es correcta?", opts:[
-        "El margen usado no define tu riesgo real: eso depende del stop y el lotaje.",
-        "Un apalancamiento alto por sí mismo hace que la operación sea más segura.",
-        "El margen retenido es igual a la pérdida máxima que puede tener la operación.",
-        "Más apalancamiento disponible implica, por definición, un menor riesgo real."], correct:0,
-      explain:"Que el bróker permita una posición grande no significa que sea prudente. El margen es una cifra de garantía; el riesgo real lo define tu stop loss y tu plan." },
-    { block:"H", q:"El precio sube, supera por 6 pips el máximo previo donde muchos traders tenían su stop de venta, y en menos de dos velas regresa con fuerza por debajo de ese máximo. ¿Qué describe mejor este movimiento?", opts:[
-        "Una ruptura de estructura ya confirmada hacia el lado alcista.",
-        "Un order block alcista que se formó justo en ese máximo previo.",
-        "Ruido de mercado sin ningún significado técnico relevante.",
-        "Un barrido de liquidez seguido de una reversión con fuerza."], correct:3,
-      explain:"Tocar y superar brevemente un nivel de liquidez, y luego revertir con fuerza, es la firma de un barrido de liquidez, no de una ruptura real." },
-    { block:"I", q:"Un nivel de Fibonacci del 61.8% coincide exactamente con un order block bajista y con una resistencia previa. ¿Cómo se llama esta coincidencia y qué implica?", opts:[
-        "Sobreanálisis; entre más herramientas se combinen, peor es la señal.",
-        "Ruido estadístico, sin relevancia práctica para la decisión.",
-        "Una confluencia técnica, que sugiere una zona de mayor calidad.",
-        "Una señal de venta clara, dada la cantidad de coincidencias."], correct:2,
-      explain:"Cuando varias razones independientes coinciden en la misma zona, la idea gana calidad — pero sigue siendo análisis, nunca una garantía." },
-    { block:"C", q:"En el gráfico ves máximos en 1950, 1962, 1958, 1971 y mínimos en 1940, 1949, 1955, 1964. ¿Qué estructura describe mejor esta secuencia?", opts:[
-        "Una tendencia alcista, con máximos y mínimos cada vez más altos.",
-        "Un rango lateral, sin una dirección definida en el precio.",
-        "Una tendencia bajista, con máximos y mínimos cada vez más bajos.",
-        "Un barrido de liquidez sobre el máximo más reciente de la serie."], correct:0,
-      explain:"Cada máximo y mínimo es más alto que el anterior — la definición exacta de una estructura alcista (HH/HL)." },
-    { block:"D", type:"numeric", unit:"USD",
-      q:"Tu cuenta tiene $2,000 USD. Decides arriesgar 1.5% en una operación. ¿Cuántos dólares, exactamente, estás dispuesto a perder si el stop loss se ejecuta?",
-      answer:30, tolerance:0.5,
-      explain:"$2,000 × 1.5% = $30. Este número se define antes de tocar el gráfico — no después." },
-    { block:"G", type:"numeric", unit:"%",
-      q:"Tu cuenta bajó de $3,000 a $2,850 tras una operación perdedora. ¿Qué porcentaje exacto de tu capital representó esa pérdida?",
-      answer:5, tolerance:0.3,
-      explain:"$150 de pérdida ÷ $3,000 de capital = 5%. Siempre conviene leer la pérdida como porcentaje del capital, no solo en dólares." },
-    { block:"I", q:"Un trader traza una línea de tendencia conectando dos mínimos; otro conecta tres mínimos y dos máximos formando un canal. ¿Qué gana el segundo análisis frente al primero?", opts:[
-        "Nada distinto; ambos análisis son igual de válidos en cualquier caso.",
-        "La certeza de en qué punto exacto va a girar el precio después.",
-        "La eliminación completa del riesgo en la siguiente operación.",
-        "Una referencia adicional de los límites probables del movimiento."], correct:3,
-      explain:"Un canal aporta un límite adicional de referencia — más contexto, nunca certeza ni eliminación de riesgo." },
-    { block:"F", q:"Recibes una señal de compra en XAU/USD. Antes de copiarla, notas que el precio está justo debajo de una resistencia fuerte, en contra de la dirección de la señal. ¿Qué describe mejor esta situación?", opts:[
-        "La señal pierde toda validez de inmediato por tener una resistencia cerca.",
-        "Deberías descartar tu propio análisis frente a cualquier señal recibida.",
-        "Sigues siendo un trader copiador, porque la señal fue tu punto de partida.",
-        "Estás ejerciendo análisis propio, al contrastar la señal con tu contexto."], correct:3,
-      explain:"Usar la señal como punto de partida y contrastarla contra tu propio contexto es exactamente la definición de análisis propio." },
-    { block:"E", q:"Tu capital total es $4,000, pero $1,200 los necesitas disponibles para gastos del próximo mes. ¿Sobre qué base deberías calcular tu riesgo por operación?", opts:[
-        "Sobre los $4,000 completos, ya que ese es el capital total de la cuenta.",
-        "Sobre $2,800, lo que no compromete tus obligaciones del próximo mes.",
-        "Sobre los $1,200, que en apariencia parece la opción más conservadora.",
-        "Sobre un promedio entre el capital total y el monto ya comprometido."], correct:1,
-      explain:"El capital arriesgable es solo la porción que no compromete tus obligaciones — confundirlo con el capital total es un error común y costoso." },
-    { block:"J", q:"El DXY rompe un máximo importante con fuerza mientras analizas una posible compra en XAU/USD. Según la relación típica entre ambos, ¿qué debería hacer esto en tu análisis?", opts:[
-        "No debería importarte, son instrumentos sin relación entre sí.",
-        "Sumar contexto en contra de tu idea, dado que suelen moverse opuestos.",
-        "Confirmar de inmediato tu compra planeada en el oro, sin más revisión.",
-        "Indicarte que conviene cambiar tu operación al DXY en vez del oro."], correct:1,
-      explain:"DXY y XAU/USD suelen moverse en direcciones opuestas — un instrumento correlacionado te da una segunda opinión de contexto, nunca la decide por ti." },
-    { block:"G", q:"Abres 4 operaciones el mismo día, cada una arriesgando 1% de tu cuenta, y las 4 siguen abiertas al mismo tiempo. ¿Cuál es tu riesgo agregado real en ese momento?", opts:[
-        "1%, porque cada operación se evalúa por separado de todas las demás.",
-        "4%: el riesgo de operaciones abiertas al mismo tiempo se va sumando.",
-        "0.25%, porque el riesgo se reparte entre las cuatro operaciones abiertas.",
-        "Depende únicamente de la política interna que use cada bróker."], correct:1,
-      explain:"El riesgo por operación es correcto en aislamiento, pero el riesgo agregado de un mismo día se acumula — por eso existe el límite de 'peor día'." },
-    { block:"H", q:"Justo antes de un movimiento impulsivo bajista muy fuerte, identificas la última vela alcista antes de que el precio cayera con fuerza. ¿Qué es esa vela?", opts:[
-        "Un order block bajista, la huella de esa entrada institucional.",
-        "Una zona de soporte que el precio respetó antes de caer.",
-        "Un retroceso de Fibonacci calculado sobre el impulso bajista.",
-        "Un barrido de liquidez ocurrido sobre un mínimo previo."], correct:0,
-      explain:"Esa última vela de dirección contraria antes del impulso fuerte es, por definición, un order block." },
-    { block:"C", q:"El precio rompe una resistencia clara, cierra tres velas por encima de ella, y en el siguiente retroceso esa misma zona detiene la caída y el precio rebota. ¿Qué describe este cambio de rol?", opts:[
-        "Un order block bajista que se formó justo encima de esa resistencia.",
-        "Un cambio de polaridad: la resistencia ahora actúa como soporte del precio.",
-        "Un barrido de liquidez que finalmente falló en revertir el precio ahí.",
-        "Un spread inusualmente amplio que distorsionó la lectura de ese nivel."], correct:1,
-      explain:"Es el fenómeno de cambio de polaridad: una zona que frenaba la subida ahora frena la caída, una vez que el precio la superó con convicción." },
-    { block:"D", type:"numeric", unit:"lotes",
-      q:"Capital de $5,000, riesgo de 2% por operación, stop loss de 40 pips (valor de pip $10 por lote estándar). Usa: lotes = riesgo en $ ÷ (pips de stop × valor de pip por lote). ¿Cuál es el tamaño de posición en lotes estándar?",
-      answer:0.25, tolerance:0.02,
-      explain:"Riesgo en $ = $5,000 × 2% = $100. Lotes = $100 ÷ (40 × $10) = $100 ÷ $400 = 0.25 lotes." },
-    { block:"B", q:"Son las 14:30 UTC. Según los horarios de sesión, ¿qué mercados están probablemente activos al mismo tiempo?", opts:[
-        "Sídney y Tokio, por ser las dos sesiones asiáticas del día.",
-        "Ningún mercado, ya que a esa hora se considera cierre general.",
-        "Londres y Nueva York, coincidiendo en su ventana de solape.",
-        "Solo Tokio, que sigue activo hasta media tarde en Londres."], correct:2,
-      explain:"Londres (08:00–17:00 UTC) y Nueva York (13:00–22:00 UTC) se solapan justo en ese horario — la ventana de mayor actividad del día." },
-    { block:"K", q:"Marcas tu zona, ves una vela de rechazo válida, y ejecutas la compra en cuanto sientes que 'ya es momento', sin fijar antes ningún nivel exacto de entrada. ¿Qué paso de tu modelo te estás saltando?", opts:[
-        "El gatillo, porque la entrada depende de una condición objetiva y verificable.",
-        "El contexto, porque la sesión de mercado deja de importar tras la confirmación.",
-        "La zona, porque una entrada válida no necesita ubicarse en un nivel específico.",
-        "La invalidación, porque ese nivel se define solo después de haber entrado ya."], correct:0,
-      explain:"El gatillo tiene que ser una condición objetiva y verificable — 'sentir que ya es momento' no es un nivel que otra persona pueda confirmar en el gráfico." },
-    { block:"A", type:"numeric", unit:"USD",
-      q:"Operas GBP/JPY con un lote estándar. En pares con yen, un pip equivale al segundo decimal. Si el precio se mueve 18 pips a tu favor y el valor por pip para ese par y tamaño es de $9 USD, ¿cuántos dólares ganaste?",
-      answer:162, tolerance:5,
-      explain:"18 pips × $9 por pip = $162. El valor del pip cambia según el par y el tamaño de posición — por eso siempre lo confirmas antes de operar." },
-    { block:"B", q:"A las 23:00 UTC notas volumen notablemente bajo y un spread más amplio de lo normal. ¿Qué acción es más consistente con buena gestión de riesgo?", opts:[
-        "Aumentar el lotaje planeado para compensar el spread amplio del momento.",
-        "Ejecutar igual sin ajustar nada; el volumen no cambia el riesgo real.",
-        "Cambiar de estrategia por completo mientras dure ese horario del día.",
-        "Subir tu exigencia con la señal antes de arriesgar capital en ese momento."], correct:3,
-      explain:"El contexto de sesión no decide por ti, pero sí debe subir tu exigencia antes de arriesgar capital en condiciones de baja liquidez." },
-    { block:"H", q:"Marcaste correctamente un order block. ¿Qué deberías hacer antes de operar solo por eso?", opts:[
-        "Entrar de inmediato, porque un order block ya es confirmación suficiente.",
-        "Confirmar con el resto del análisis antes de considerarlo una entrada.",
-        "Ignorarlo por completo, ya que los order blocks no son confiables.",
-        "Esperar a que la zona desaparezca del gráfico antes de decidir algo."], correct:1,
-      explain:"Una zona técnica, por sí sola, nunca es una orden de entrada — se confirma con el resto del proceso, igual que cualquier otra zona de interés." },
-    { block:"I", q:"El precio llega a una zona de confluencia técnica, pero el volumen relativo es notablemente bajo comparado con lo normal para ese instrumento. ¿Qué implica esto?", opts:[
-        "Que la reacción es menos confiable que con un volumen alto en la zona.",
-        "Que la confluencia técnica es suficiente por sí sola, sin más análisis.",
-        "Que el volumen bajo confirma por sí solo la entrada en esa zona.",
-        "Que conviene duplicar el lotaje por la baja participación del momento."], correct:0,
-      explain:"El volumen relativo confirma o pone en duda una zona de interés — bajo volumen resta confiabilidad a la reacción, no la garantiza." },
-    { block:"C", q:"Una vela con cuerpo pequeño y una mecha inferior mucho más larga que el cuerpo, cerca del final de una caída, generalmente indica:", opts:[
-        "Continuación fuerte de la tendencia bajista en curso.",
-        "Que el mercado permaneció cerrado durante ese periodo.",
-        "Rechazo de precios más bajos y posible presión compradora.",
-        "Un error de graficación en la plataforma que se usa."], correct:2,
-      explain:"La mecha larga muestra que el precio bajó pero fue rechazado con fuerza — los compradores recuperaron el control antes del cierre." },
-    { block:"E", q:"Llevas 3 operaciones perdedoras seguidas y tu regla de cierre de día es 'máximo 3 pérdidas consecutivas'. ¿Qué deberías hacer, según el propósito real de esa regla?", opts:[
-        "Subir el riesgo en la siguiente operación para recuperar lo perdido.",
-        "Seguir operando con el mismo riesgo; la regla es solo una referencia.",
-        "Detener la operativa por el resto del día, sin hacer una excepción.",
-        "Cambiar de par de divisas y continuar operando con el conteo en cero."], correct:2,
-      explain:"Las reglas de cierre de día existen exactamente para el momento en que más ganas de romperlas — protegerte de ti mismo en una racha." },
-    { block:"K", q:"Fijaste el punto de invalidación unos puntos por debajo del order block identificado. El precio se acerca a ese nivel y, antes de tocarlo, lo mueves más abajo porque 'todavía puede reaccionar'. ¿Qué problema tiene esa decisión?", opts:[
-        "Ninguno: la invalidación puede ajustarse con libertad hasta el momento del gatillo.",
-        "Deja de proteger tu análisis: una invalidación que cambia no cumple ninguna función.",
-        "Mejora el modelo, porque le da más espacio de reacción a la idea original todavía.",
-        "Solo afecta al stop loss, y no a ninguna otra parte del modelo de entrada."], correct:1,
-      explain:"La invalidación solo protege tu análisis si se respeta exactamente donde se fijó — moverla cuando el precio se acerca es el mismo error que mover un stop loss a sentimiento." },
-    { block:"G", q:"Cierras una operación que en el gráfico parecía ganar exactamente $100, pero tu plataforma muestra solo $91 de ganancia neta. ¿Cuál es la explicación más completa?", opts:[
-        "Un error de la plataforma que suele corregirse en el siguiente cierre.",
-        "El spread se cobra dos veces al momento exacto de cerrar la operación.",
-        "Comisión y/o slippage redujeron el resultado teórico al resultado real.",
-        "Las ganancias de la cuenta se redondean hacia abajo por política del bróker."], correct:2,
-      explain:"El resultado real casi nunca es idéntico al teórico por spread, comisión y slippage — conocerlos evita sorpresas que en realidad son normales." },
-    { block:"F", q:"Un trader dice: 'si no llega una señal en la primera hora de Londres, siento que estoy perdiendo la oportunidad del día'. ¿Qué sesgo describe mejor esta frase?", opts:[
-        "Dependencia emocional de recibir una señal externa para poder operar.",
-        "Riesgo inconsistente entre una operación y la siguiente del mismo día.",
-        "Ausencia de un criterio de salida propio una vez abierta la operación.",
-        "Exceso de confianza en el propio análisis técnico sobre el gráfico."], correct:0,
-      explain:"La ansiedad por la ausencia de una señal externa es la forma más clara de dependencia emocional de la señal." },
-    { block:"A", q:"El spread de XAU/USD pasa de 20 a 65 puntos en segundos, sin ninguna noticia programada. ¿Cuál es la explicación más probable?", opts:[
-        "El bróker decidió subir permanentemente su comisión por operación.",
-        "Hubo una caída temporal de liquidez disponible en ese instante del mercado.",
-        "El precio del oro subió, y una subida de precio por sí sola amplía el spread.",
-        "Es un error de la plataforma que se corrige solo en los próximos minutos."], correct:1,
-      explain:"El spread se amplía cuando baja la liquidez disponible en ese instante — es contexto de mercado, no un cambio de tarifa." },
-    { block:"J", q:"Antes de ejecutar, revisas tu checklist operativo y notas que moviste tu stop varias veces 'a sentimiento' durante el análisis. Según el propósito real del checklist, ¿qué debería pasar?", opts:[
-        "Ejecutar de todas formas, ya que revisaste las demás preguntas.",
-        "Reducir el lotaje a la mitad y ejecutar la operación de todas formas.",
-        "No ejecutar hasta definir un stop técnico real, no emocional.",
-        "Tratarlo como una formalidad opcional dentro del checklist."], correct:2,
-      explain:"El checklist existe para detener exactamente este tipo de operación — un stop movido a sentimiento ya no es un stop técnico." },
-    { block:"D", q:"Colocaste un stop loss de 20 pips y calculaste tu lotaje para arriesgar $40. A mitad de la operación mueves el stop a 35 pips 'porque crees que va a regresar'. ¿Qué pasó con tu riesgo real?", opts:[
-        "Sigue siendo $40, porque el lotaje de la operación no cambió.",
-        "Disminuyó, porque el precio ahora tiene más espacio para moverse.",
-        "No se puede saber sin conocer el resultado final de la operación.",
-        "Aumentó, porque el mismo lotaje ahora cubre una distancia de stop mayor."], correct:3,
-      explain:"El riesgo en dólares depende del lotaje Y de la distancia del stop. Si el lotaje no cambia pero el stop se aleja, el riesgo real sube por encima de lo planeado." },
-    { block:"J", q:"Abres una compra en XAU/USD y, sin darte cuenta, otra compra en XAG/USD (plata), instrumentos que suelen moverse en la misma dirección. ¿Qué implica esto para tu riesgo real?", opts:[
-      "El riesgo se reduce, porque tienes dos oportunidades distintas de ganar.",
-      "El riesgo no cambia, porque cada instrumento se opera por separado en el bróker.",
-      "El riesgo agregado real es mayor, porque ambas operaciones tienden a moverse juntas.",
-      "El riesgo solo importa si ambas operaciones usan exactamente el mismo lotaje."], correct:2,
-    explain:"Dos instrumentos correlacionados no son dos apuestas independientes: si el mercado se mueve en contra, ambas posiciones pierden a la vez — el riesgo real agregado es mayor de lo que parece en cada operación por separado." },
-    { block:"B", type:"numeric", unit:"horas",
-    q:"La sesión de Tokio corre de 00:00 a 09:00 UTC y la sesión de Londres de 08:00 a 17:00 UTC. ¿Durante cuántas horas exactas se solapan ambas sesiones?",
-    answer:1, tolerance:0,
-    explain:"Tokio cierra a las 09:00 UTC y Londres abre a las 08:00 UTC — el único traslape posible es de 08:00 a 09:00, es decir, 1 hora." },
-    { block:"C", q:"En una tendencia bajista, el precio rompe por primera vez un máximo menor (rompiendo la secuencia de máximos y mínimos descendentes), aunque todavía no supera el máximo mayor de la tendencia. ¿Qué señal técnica describe mejor este evento?", opts:[
-      "Una ruptura de estructura (BOS) que confirma la continuación bajista.",
-      "Un barrido de liquidez que no tiene ningún significado direccional.",
-      "Un cambio de carácter (CHoCH): la primera señal de que el vendedor pierde fuerza.",
-      "Una señal de venta inmediata, sin necesidad de ninguna otra confirmación."], correct:2,
-    explain:"Romper el primer máximo menor dentro de una tendencia bajista es la definición de un cambio de carácter (CHoCH) — una advertencia temprana, no todavía una reversión confirmada." },
-    { block:"H", q:"El precio regresa a un order block alcista por segunda vez, reacciona con una mecha pequeña y sigue cayendo minutos después, cerrando por debajo de la zona. ¿Qué concepto describe este comportamiento del order block?", opts:[
-      "El order block se fortalece cada vez que el precio lo vuelve a tocar.",
-      "El order block fue mitigado: perdió la fuerza que tenía la primera vez.",
-      "El order block cambia de bajista a alcista en cada segunda visita del precio.",
-      "El order block solo es válido si el precio lo toca exactamente una vez."], correct:1,
-    explain:"Cada visita a una zona de order block puede ir agotando las órdenes pendientes que la sostenían — cuando ya no reacciona con fuerza, se considera mitigado." },
-    { block:"G", type:"numeric", unit:"USD",
-    q:"Cierras 3 operaciones seguidas cuya suma de ganancias teóricas (antes de costos) fue de $220. Cada una perdió $3.50 de esa ganancia por comisión y slippage. ¿Cuál fue tu ganancia neta real, en dólares?",
-    answer:209.5, tolerance:1,
-    explain:"Costos totales = $3.50 × 3 = $10.50. Ganancia neta = $220 − $10.50 = $209.50." },
-    { block:"D", q:"Dos operaciones arriesgan el mismo monto en dólares. La Operación 1 tiene R:R de 1:1.5 y la Operación 2 de 1:3, con la misma probabilidad de acierto. ¿Qué es correcto a largo plazo?", opts:[
-        "La Operación 2 puede ser rentable acertando un porcentaje menor de veces.",
-        "Ambas son igual de rentables a largo plazo, porque el riesgo es idéntico.",
-        "La Operación 1 es mejor, porque cierra sus ganancias con más rapidez.",
-        "El R:R no influye en la rentabilidad si el acierto se mantiene constante."], correct:0,
-      explain:"Con mejor R:R necesitas acertar menos veces para que la cuenta crezca — es la base matemática de por qué el R:R importa tanto como el acierto." },
-    { block:"K", q:"Ya identificaste una zona (order block alcista) en tu análisis de XAUUSD, pero el precio la toca y se queda con velas pequeñas e indecisas, sin romper ningún nivel menor a favor. Según tu modelo, ¿qué corresponde hacer?", opts:[
-        "Definir ya el gatillo de entrada, porque la zona identificada resulta suficiente.",
-        "Descartar la zona por completo y buscar otra distinta en el gráfico de inmediato.",
-        "Duplicar el lotaje planeado, ya que la zona sigue siendo técnicamente válida.",
-        "Esperar sin operar, porque el paso de confirmación todavía no se ha cumplido."], correct:3,
-      explain:"Llegar a la zona no es suficiente: sin una señal de confirmación dentro de ella, el modelo indica que todavía no hay entrada, sin importar qué tan buena se vea la zona." },
-    { block:"E", q:"Después de una pérdida, sientes el impulso de abrir otra operación de inmediato 'para recuperarla', aunque no tengas ninguna señal según tu modelo. ¿Qué principio de disciplina se aplica aquí?", opts:[
-      "Aumentar el riesgo en la siguiente operación para compensar la pérdida ya ocurrida.",
-      "Operar solo cuando el modelo lo indica, sin importar el resultado anterior.",
-      "Cambiar de instrumento para evitar que la pérdida se repita en el mismo par.",
-      "Duplicar el análisis técnico antes de decidir si se recupera la pérdida."], correct:1,
-    explain:"El impulso de 'recuperar' una pérdida de inmediato es la entrada emocional por excelencia; el modelo decide si hay entrada, no el resultado de la operación anterior." },
-    { block:"I", q:"En el gráfico de 1 hora identificas una zona de entrada válida, pero en el gráfico diario esa misma zona coincide con una resistencia mayor sin romper. ¿Qué debería pesar más en tu decisión final?", opts:[
-      "Solo el gráfico de 1 hora, porque es la temporalidad donde vas a ejecutar.",
-      "Ninguno de los dos, porque las confluencias entre temporalidades no son relevantes.",
-      "El gráfico diario únicamente si coincide también con un indicador de momentum.",
-      "El contexto de la temporalidad mayor, que puede invalidar o debilitar la idea menor."], correct:3,
-    explain:"Una temporalidad mayor da el contexto dentro del cual opera la menor — una resistencia importante ahí puede debilitar o invalidar una idea que en 1 hora se ve perfecta." },
-    { block:"A", q:"Tu bróker aplica un nivel de stop-out del 50%. Tu margen usado sube y tu nivel de margen (equity/margen) cae a 55%, sin que hayas cerrado nada. ¿Qué describe mejor tu situación?", opts:[
-      "Estás a salvo de cierre forzoso porque el nivel de margen es mayor a cero.",
-      "El nivel de margen no tiene relación con el cierre forzoso de posiciones.",
-      "El bróker ya debió haber cerrado tus posiciones desde que tocaste el 55%.",
-      "Estás cerca del cierre forzoso, que ese bróker aplica justo al llegar al 50%."], correct:3,
-    explain:"El nivel de stop-out es el punto en el que el bróker cierra posiciones automáticamente para proteger tu cuenta y la suya; estar por encima todavía te deja margen, pero cada vez más cerca del cierre forzoso." },
-    { block:"F", q:"Recibes una señal de venta y, al revisar tu gráfico, solo te fijas en las razones que la apoyan, ignorando una resistencia rota recientemente que contradice la idea. ¿Qué error describe mejor esta conducta?", opts:[
-      "Sesgo de confirmación: buscar solo la evidencia que respalda una idea ya aceptada.",
-      "Análisis propio bien aplicado, porque se usó el gráfico como referencia.",
-      "Gestión de riesgo deficiente, sin relación con el análisis técnico realizado.",
-      "Un error de ejecución en la plataforma al momento de revisar el gráfico."], correct:0,
-    explain:"Buscar selectivamente la evidencia que confirma una señal ya aceptada, ignorando lo que la contradice, es la definición exacta de sesgo de confirmación." },
-    { block:"K", q:"Construyes tu modelo exigiendo, a la vez, los tres criterios de confirmación: vela de rechazo, ruptura de estructura menor y testeo con reacción. ¿Qué consecuencia es más probable con esa exigencia?", opts:[
-        "Ninguna entrada cumple las tres condiciones a la vez, y el modelo deja de usarse.",
-        "El riesgo por operación sube de forma directa al exigir más condiciones a la vez.",
-        "Rara vez vas a encontrar una entrada así, o forzarás la lectura para justificarla.",
-        "El modelo se vuelve mucho más objetivo cuantos más criterios exijas a la vez."], correct:2,
-      explain:"Exigir demasiadas condiciones a la vez casi nunca se cumple de forma honesta — el resultado habitual es no operar casi nunca, o forzar la lectura para justificar la entrada que ya se quería hacer." },
-    { block:"B", q:"Es viernes 22:30 UTC, minutos antes del cierre semanal del mercado. Ves una señal de entrada aparentemente perfecta. ¿Qué riesgo adicional trae operar justo en este horario?", opts:[
-      "Ninguno adicional, el cierre semanal no afecta la ejecución de órdenes.",
-      "El gap del domingo puede mover el precio en tu contra sin que puedas reaccionar.",
-      "El spread se vuelve más angosto por la baja actividad de ese horario.",
-      "Tu bróker cierra por su cuenta cualquier operación abierta antes del cierre."], correct:1,
-    explain:"Al cierre del mercado, una posición abierta queda expuesta al gap de apertura del domingo — el precio puede saltar sin que haya oportunidad de ajustar el stop mientras el mercado estuvo cerrado." },
-    { block:"G", q:"Haces 15 operaciones en un día sobre un instrumento donde el spread normal es de 1.5 pips, pero por baja liquidez del momento pagas 3 pips de spread en cada una. Aunque cada diferencia parece pequeña, ¿qué error de riesgo describe mejor este patrón acumulado?", opts:[
-      "Ninguno, el spread adicional se recupera con operaciones ganadoras.",
-      "El costo extra se multiplica por las operaciones y erosiona el resultado.",
-      "El spread más alto solo afecta a las operaciones que terminan perdiendo.",
-      "Es un error que debe reportarse de forma individual ante el bróker."], correct:1,
-    explain:"Un costo pequeño por operación deja de ser pequeño cuando se repite 15 veces en el mismo día — el spread extra se multiplica y erosiona el resultado total, no solo el de una operación." },
-    { block:"J", type:"numeric", unit:"%",
-    q:"Tu regla de riesgo agregado diario es no superar el 4% de tu cuenta. Ya llevas dos operaciones abiertas, cada una arriesgando 1.25% de tu cuenta. ¿Qué porcentaje de riesgo diario te queda disponible antes de tocar el límite?",
-    answer:1.5, tolerance:0.2,
-    explain:"Riesgo ya comprometido = 1.25% × 2 = 2.5%. Disponible = 4% − 2.5% = 1.5%." },
-    { block:"H", q:"En el gráfico ves tres máximos casi al mismo nivel, formando una línea horizontal clara. Según el concepto de liquidez, ¿qué es más probable que exista justo por encima de esos máximos?", opts:[
-      "Un vacío de precio sin ningún interés de otros participantes del mercado.",
-      "Una zona de descuento ideal para abrir una compra sin ninguna confirmación.",
-      "Una concentración de stops de venta y órdenes de compra en ese nivel.",
-      "Un error de graficación que suele desaparecer al cambiar de temporalidad."], correct:2,
-    explain:"Máximos iguales acumulan stops de quienes vendieron ahí y órdenes de compra de quienes esperan una ruptura — esa acumulación es lo que hace atractivo ese nivel para un barrido de liquidez." },
-    { block:"D", type:"numeric", unit:"lotes",
-    q:"Capital de $8,000, arriesgas 0.75% en una operación con stop loss de 25 pips en EUR/USD (valor de pip $10 por lote estándar). Usa: lotes = riesgo en $ ÷ (pips de stop × valor de pip por lote). ¿Cuántos lotes estándar debes usar?",
-    answer:0.24, tolerance:0.02,
-    explain:"Riesgo en $ = $8,000 × 0.75% = $60. Lotes = $60 ÷ (25 × $10) = $60 ÷ $250 = 0.24 lotes." },
-    { block:"C", q:"Una vela forma una mecha larga que perfora un mínimo previo evidente, pero el cuerpo de la vela cierra muy por encima de ese mínimo, dentro del rango anterior. ¿Qué interpretación es más consistente con el resto del modelo?", opts:[
-      "El precio confirmó una ruptura bajista válida y debe continuar cayendo.",
-      "La vela indica que el bróker manipuló el precio de forma directa.",
-      "El cierre dentro del rango no aporta ninguna información útil.",
-      "La mecha probablemente barrió liquidez y fue rechazada antes del cierre."], correct:3,
-    explain:"Un cierre que regresa dentro del rango después de perforar un mínimo con la mecha es la firma típica de un barrido de liquidez seguido de rechazo, no de una ruptura confirmada." },
-    { block:"I", q:"El precio marca un nuevo mínimo, pero el RSI marca un mínimo más alto que el anterior, justo sobre una zona de soporte relevante. ¿Cómo se llama esta coincidencia y qué aporta?", opts:[
-      "Divergencia alcista con soporte: una confluencia que suma calidad a la zona.",
-      "Un error del indicador que debe ignorarse frente al precio real, sin más.",
-      "Una señal de venta clara, ya que el precio sigue en mínimos más bajos.",
-      "Una coincidencia sin peso, porque el RSI no debe combinarse con soporte."], correct:0,
-    explain:"Cuando el precio y el indicador se mueven en direcciones distintas cerca de una zona técnica relevante, la coincidencia suma una razón adicional e independiente — eso es exactamente una confluencia." },
-    { block:"F", q:"Un trader revisa cada señal recibida contra su propio análisis de estructura, riesgo y contexto, y a veces decide no tomarla aunque provenga de una fuente confiable. ¿Qué describe mejor esta forma de operar?", opts:[
-      "Desconfianza injustificada hacia una fuente que ya ha demostrado ser confiable.",
-      "Trading copiador disfrazado de análisis propio, sin ningún criterio real detrás.",
-      "Una pérdida de tiempo, ya que la fuente confiable ya hizo el análisis necesario.",
-      "Uso saludable de la señal como insumo, no como orden automática de entrada."], correct:3,
-    explain:"Tratar la señal como un insumo más — que se contrasta contra el propio análisis y puede descartarse — es exactamente lo que distingue el análisis propio del trading copiador." },
-    { block:"E", q:"Te sientes muy seguro de una operación y decides arriesgar 4% en vez de tu 1% habitual, 'porque esta vez es diferente'. Tras repetir varias veces este patrón, ¿qué es lo más probable que ocurra a tu cuenta?", opts:[
-      "Nada distinto, mientras el análisis técnico detrás de la operación sea correcto.",
-      "Mejora de forma sostenida, porque el mayor riesgo refleja mayor convicción real.",
-      "Una sola operación en contra puede borrar semanas de ganancias consistentes.",
-      "El riesgo variable no afecta el resultado si el R:R se mantiene igual."], correct:2,
-    explain:"La confianza no cambia la probabilidad real de acierto; variar el riesgo según qué tan seguro te sientes expone la cuenta entera a una sola operación en contra." },
-    { block:"A", q:"Operas 0.10 lotes en EUR/USD, donde el valor de pip para 1 lote estándar es $10. Cambias a 0.50 lotes en la misma operación futura. ¿Qué le pasa al valor de cada pip?", opts:[
-      "Aumenta en la misma proporción que aumentó el tamaño de la posición.",
-      "No cambia, porque el valor del pip depende solo del par de divisas.",
-      "Se reduce a la mitad, porque el lotaje bajó respecto al estándar.",
-      "Solo se puede calcular usando el spread del bróker en ese momento."], correct:0,
-    explain:"El valor del pip es proporcional al tamaño de la posición: si el lotaje sube de 0.10 a 0.50 (5 veces), el valor de cada pip también se multiplica por 5." },
+    {
+      "block": "44",
+      "lvl": "Comprender",
+      "q": "¿Cuál de estas actividades cumple la definición de backtesting que vimos en el concepto 44?",
+      "opts": [
+        "Revisar solo las entradas ganadoras de los últimos meses para confirmar que el modelo se cumple en ellas.",
+        "Aplicar el modelo completo, con sus cinco pasos, a datos pasados y registrar cada resultado sin saber lo que sigue.",
+        "Marcar en el gráfico completo los lugares donde el precio hizo movimientos claros que tu modelo habría detectado.",
+        "Comparar tu modelo con los resultados publicados por otros traders que operan el mismo activo y marco temporal."
+      ],
+      "correct": 1,
+      "why": [
+        "Mirar solo las ganadoras es elegir los casos por su resultado, que es lo contrario de probar el modelo.",
+        "",
+        "Eso es backtesting visual: eliges los movimientos sabiendo que ocurrieron, así que el resultado sale sesgado.",
+        "Los resultados de otros no prueban tu modelo: backtesting es aplicar el tuyo, completo y con tus reglas, y medir lo que sale."
+      ],
+      "explain": "Backtesting es aplicar tu modelo completo — sin saltarte ningún paso — sobre datos que ya ocurrieron, 'como si no supieras' qué sigue, y registrar el resultado de cada decisión. Las otras opciones eligen casos por su resultado o usan datos ajenos, así que no miden tu modelo."
+    },
+    {
+      "block": "45",
+      "lvl": "Evaluar",
+      "q": "En tu primera sesión de 30 minutos simulados registraste 3 decisiones, y las tres fueron 'no cumple, no hay entrada'. Un amigo te dice que el ejercicio salió mal. ¿Cuál es la lectura correcta?",
+      "opts": [
+        "Salió bien: la mayoría de las velas no producen operación, y registrar los 'no cumple' prueba que aplicaste el modelo.",
+        "Salió mal: una sesión sin entradas no genera datos útiles para el backtesting y debe repetirse completa otro día.",
+        "Salió mal: si el modelo no dio ninguna entrada, es demasiado estricto y conviene relajar un poco sus reglas.",
+        "Salió bien, pero solo si en la siguiente sesión fuerzas una entrada hipotética para equilibrar los datos."
+      ],
+      "correct": 0,
+      "why": [
+        "",
+        "Sí genera datos: cada 'no cumple' es una decisión tomada sin ver el futuro, igual que en vivo.",
+        "Tres decisiones no bastan para juzgar qué tan estricto es el modelo; además, relajarlo para obtener entradas sería diseñarlo para que luzca activo.",
+        "Forzar entradas es inventar operaciones que el modelo no pidió, y eso contamina el backtest."
+      ],
+      "explain": "La práctica pedía registrar al menos 3 decisiones 'aunque las tres sean no cumple'. En trading real la mayoría de las velas no producen operación, así que un backtest honesto tiene muchos 'no' y pocos 'sí'. Forzar entradas o relajar el modelo para tenerlas lo contamina."
+    },
+    {
+      "block": "46",
+      "lvl": "Aplicar",
+      "q": "Marta arriesga 1% de una cuenta de $5,000 y gana $110 en una operación. Luis arriesga 1% de una cuenta de $20,000 y gana $400. ¿Quién obtuvo el mejor resultado medido en R?",
+      "opts": [
+        "Luis, porque ganó $400 contra $110 y los dólares ganados son la medida más directa del resultado.",
+        "Marta: sus $110 sobre $50 de riesgo son +2.2R, frente a los +2R de Luis, aunque él ganó más dólares.",
+        "Empataron, porque ambos arriesgaron el mismo 1% de su cuenta en la operación.",
+        "No se pueden comparar, porque las cuentas son de tamaños distintos y los resultados no están en la misma escala."
+      ],
+      "correct": 1,
+      "why": [
+        "Los dólares dependen del tamaño de la cuenta; R los normaliza. Luis arriesgaba $200 por operación y Marta $50.",
+        "",
+        "Arriesgar el mismo porcentaje iguala el riesgo relativo, no el resultado: ella ganó 2.2 veces su riesgo y él 2.",
+        "Justamente R existe para comparar operaciones de cuentas distintas: mide cuántas veces ganaste lo que arriesgabas."
+      ],
+      "explain": "R = resultado ÷ riesgo en dólares. Marta: $110 ÷ $50 = +2.2R. Luis: $400 ÷ $200 = +2R. R normaliza el resultado sin importar el tamaño de la cuenta, y por eso permite comparar y promediar operaciones distintas."
+    },
+    {
+      "block": "45",
+      "lvl": "Analizar",
+      "q": "En la vela 15 ves un rechazo dudoso. Avanzas 5 velas 'solo para confirmar', ves que el precio sube con fuerza y entonces decides que la vela 15 sí valía como confirmación. ¿Qué pasa con esa operación en el backtest?",
+      "opts": [
+        "Queda contaminada y no sirve como dato: el futuro influyó en una decisión que debía tomarse sin conocerlo.",
+        "Es válida, pero conviene anotar en la bitácora que hubo un vistazo adelantado para tenerlo presente.",
+        "Cuenta con menos peso: se registra, pero su resultado en R se divide entre dos al calcular el promedio final.",
+        "Es válida, porque al final el precio confirmó que tu lectura de la vela 15 era la correcta y el modelo se cumplió."
+      ],
+      "correct": 0,
+      "why": [
+        "",
+        "Anotar el vistazo no repara el dato; la decisión ya quedó influida y no representa lo que habrías hecho en vivo.",
+        "No existen promedios ponderados por 'cuánto espiaste'; una decisión influida por el futuro se excluye.",
+        "El resultado no valida la decisión: justo porque ya conocías el desenlace, esa lectura dejó de ser independiente."
+      ],
+      "explain": "'Espiar' contamina: en el momento en que el futuro influye en una decisión que debía tomarse sin conocerlo, esa operación deja de ser información real sobre tu modelo. Lo correcto era decidir con las velas hasta la 15, aunque la duda te obligara a decir 'no cumple'."
+    },
+    {
+      "block": "T",
+      "lvl": "Aplicar",
+      "q": "Al llenar tu bitácora, una entrada cumplió el gatillo y cerró en +2.5R, pero el paso 2 (zona de interés) 'casi' se cumplía: el precio quedó apenas por fuera. ¿Cómo la registras?",
+      "opts": [
+        "La cuentas como válida, porque cumplió el gatillo y terminó con una ganancia clara que respalda al modelo.",
+        "La cuentas como válida, pero escribes en la nota que el paso 2 estuvo dudoso, para recordarlo después.",
+        "Marcas 'No' en '¿los 5 pasos se cumplieron?': no cuenta como operación válida ni entra a las métricas finales.",
+        "La cuentas con la mitad de su resultado, +1.25R, como compromiso entre una operación válida y una dudosa."
+      ],
+      "correct": 2,
+      "why": [
+        "Un buen resultado no convierte en válida una operación que no cumplió el modelo; el resultado no define la validez.",
+        "La nota sirve para analizar dudas, pero la plantilla es clara: si algún paso falla, la fila no cuenta.",
+        "",
+        "No hay medias operaciones válidas: o cumplió los cinco pasos en orden, o no cuenta."
+      ],
+      "explain": "La plantilla lo establece: si los cinco pasos no se cumplieron en orden y sin excepciones, la fila no cuenta como operación válida. La regla se aplica igual si hubiera salido −1R; incluir las ganadoras 'casi válidas' y excluir las perdedoras inflaría tus métricas."
+    },
+    {
+      "block": "46",
+      "lvl": "Evaluar",
+      "q": "Un modelo muestra 80% de winrate, con ganadoras de +0.4R en promedio y perdedoras de −2R en promedio. ¿Qué conclusión es correcta?",
+      "opts": [
+        "No se puede concluir nada sin saber cuántas operaciones tuvo el backtest, así que no hay expectativa calculable.",
+        "Su expectativa es −0.08R por operación: en promedio pierde dinero, aunque acierte 8 de cada 10 veces.",
+        "Su expectativa es +0.32R por operación, porque acierta 8 de cada 10 y esas ganancias dominan el resultado.",
+        "Es un modelo sólido, porque un winrate de 80% indica una ventaja estadística clara sobre el mercado."
+      ],
+      "correct": 1,
+      "why": [
+        "Con winrate y promedios la expectativa ya se calcula; el tamaño de la muestra afecta qué tan confiable es, no si puede calcularse.",
+        "",
+        "Calculaste solo la primera mitad de la fórmula; falta restar las pérdidas: 0.2 × 2 = 0.4R.",
+        "El winrate por sí solo no mide ventaja: pocas pérdidas muy grandes pueden borrar muchas ganancias pequeñas."
+      ],
+      "explain": "Expectativa = (0.80 × 0.4) − (0.20 × 2) = 0.32 − 0.40 = −0.08R. Un winrate alto no basta para ser rentable: lo que decide es cuánto ganas en las ganadoras frente a cuánto pierdes en las perdedoras."
+    },
+    {
+      "block": "T",
+      "lvl": "Aplicar",
+      "type": "numeric",
+      "unit": "R",
+      "q": "Estas son 10 filas válidas de una bitácora de backtesting, en R: +2.1, −1, −1, +3, −1, −1, +1.5, −1, +2.4, −1. ¿Cuántas R acumuló el modelo en total?",
+      "answer": 3,
+      "tolerance": 0.01,
+      "explain": "Ganadoras: 2.1 + 3 + 1.5 + 2.4 = 9.0R (4 operaciones). Perdedoras: 6 × (−1R) = −6R. Total: 9.0 − 6 = +3.0R, es decir +0.3R por operación. Con solo 4 ganadoras de 10 (40% de winrate) el resultado sigue siendo positivo."
+    },
+    {
+      "block": "44",
+      "lvl": "Analizar",
+      "q": "Sofía abre el gráfico de los últimos 3 meses, ya completamente dibujado, y marca 8 entradas donde su modelo 'se habría cumplido'. Las 8 terminan ganadoras y concluye que su modelo acierta el 100%. Aunque repitiera esto con 200 entradas, ¿qué seguiría invalidando su resultado?",
+      "opts": [
+        "Tres meses de datos son un periodo demasiado corto para que cualquier modelo muestre resultados confiables.",
+        "Debió registrar también las entradas que terminaron en pérdida, aunque las marcara con el gráfico completo a la vista.",
+        "Marcó cada entrada sabiendo ya cómo terminaba, así que el resultado mide su vista retrospectiva, no su modelo.",
+        "Debió usar un marco temporal más grande, porque en velas pequeñas es más difícil ver bien las estructuras."
+      ],
+      "correct": 2,
+      "why": [
+        "El tamaño de la muestra importa, pero la pregunta ya lo descarta: con 200 entradas el problema seguiría igual, porque la trampa está en cómo se decidió cada una, no en cuántas fueron.",
+        "Incluir perdedoras mejora el conteo, pero si siguen marcándose con el gráfico completo a la vista, también se eligen con información que no existía en ese momento.",
+        "",
+        "El marco temporal no corrige el sesgo: en cualquier gráfico ya dibujado conoces el final de la película."
+      ],
+      "explain": "La trampa es el sesgo de retrospectiva: al ver el gráfico completo ya conoces el final, y tu cerebro encuentra señales que en vivo no habrían sido tan claras. Por eso el resultado parece perfecto y no dice nada del modelo. Para que cuente, cada decisión debe tomarse sin ver lo que viene después."
+    },
+    {
+      "block": "T",
+      "lvl": "Analizar",
+      "q": "Dos alumnos tienen el mismo backtest, con una racha máxima de 7 pérdidas. Uno arriesga 0.5% por operación y el otro 2%. ¿Por qué conviene pasar el resultado a % o dólares con la Calculadora de Riesgo?",
+      "opts": [
+        "Porque ambos tendrán el mismo drawdown mientras la racha sea la misma, y la calculadora solo lo confirma.",
+        "Porque la conversión cambia el valor de la expectativa en R, que debe recalcularse para cada nivel de riesgo.",
+        "Porque el alumno que arriesga 2% tiene un modelo peor, y la conversión permite detectarlo al comparar resultados.",
+        "Porque la misma racha de 7R cuesta 3.5% a uno y 14% al otro, y solo en dinero ves si puedes tolerarla."
+      ],
+      "correct": 3,
+      "why": [
+        "Misma racha en R no implica mismo drawdown en dinero: 7 × 0.5% = 3.5%, mientras que 7 × 2% = 14%.",
+        "La expectativa en R no cambia con el riesgo; por eso se mide en R. Lo que cambia es su equivalente en dinero.",
+        "El modelo es el mismo (mismo backtest en R); lo que cambia es cuánto capital se compromete en cada operación.",
+        ""
+      ],
+      "explain": "R es una unidad abstracta: 7R perdidos son 3.5% de la cuenta con 0.5% de riesgo y 14% con 2%. Al pasar cada resultado por la Calculadora de Riesgo con tu capital y tu % reales ves el drawdown en dinero, que es lo que sentirás y lo que decide si seguirás el plan en una racha real."
+    },
+    {
+      "block": "46",
+      "lvl": "Analizar",
+      "type": "numeric",
+      "unit": "%",
+      "q": "Un modelo tiene ganadoras de +3R y perdedoras de −1R en todas sus operaciones. ¿Con qué winrate, en %, su expectativa es exactamente 0 (punto de equilibrio)?",
+      "answer": 25,
+      "tolerance": 0.1,
+      "explain": "Con winrate p: 3p − (1 − p) = 0, entonces 4p = 1 y p = 25%. Perdiendo 3 de cada 4 operaciones, pero ganando 3R cuando aciertas, sales en tablas. Por encima de 25% la expectativa es positiva: por eso un winrate bajo no descarta por sí solo un modelo."
+    },
+    {
+      "block": "47",
+      "lvl": "Evaluar",
+      "q": "Un alumno obtiene +0.36R de expectativa en su backtest y dice: 'ya está resuelto, no necesito calcular nada más'. ¿Qué le falta y por qué importa?",
+      "opts": [
+        "El winrate por separado, porque la expectativa positiva solo es válida cuando el winrate supera el 50%.",
+        "La máxima racha de pérdidas: conocerla de antemano evita que abandone el modelo cuando la viva en real.",
+        "Nada más: una expectativa positiva ya indica que el modelo no tendrá rachas relevantes de pérdidas.",
+        "Un riesgo por operación mayor, para que la expectativa positiva se traduzca en ganancias más rápido."
+      ],
+      "correct": 1,
+      "why": [
+        "La expectativa ya incluye el winrate, y puede ser positiva con un winrate menor a 50%.",
+        "",
+        "Incluso con buena expectativa, las rachas de pérdidas son matemáticamente inevitables.",
+        "Subir el riesgo no completa el análisis: amplifica justo la racha que todavía no conoce."
+      ],
+      "explain": "Expectativa positiva significa ganar en promedio y a largo plazo, pero el camino incluye rachas de pérdidas. Si no conoces la máxima racha de tu backtest, la primera que vivas en real te sorprenderá y es probable que rompas el modelo justo ahí. Por eso el drawdown máximo se calcula junto con la expectativa."
+    },
+    {
+      "block": "45",
+      "lvl": "Aplicar",
+      "q": "Registraste una entrada hipotética en la vela 16, con su invalidación definida. ¿Cómo obtienes el resultado de esa operación?",
+      "opts": [
+        "Revelas tres velas más y cierras la operación a mano donde esté el precio, para no alargar la sesión.",
+        "Esperas a la siguiente señal del modelo y registras el resultado de ambas operaciones como un solo bloque.",
+        "Saltas a las últimas velas del tramo para ver rápido cómo terminó y registras el resultado final de la operación.",
+        "Avanzas una vela a la vez hasta que el precio toque la invalidación o el objetivo, y registras el resultado en R."
+      ],
+      "correct": 3,
+      "why": [
+        "Un cierre arbitrario no es parte del modelo: el resultado debe venir de tu invalidación o de tu objetivo, no de la prisa.",
+        "Cada operación se registra por separado: mezclarlas oculta qué hizo cada una y distorsiona el winrate y el R.",
+        "Saltar al final te muestra velas que aún no ocurren en tu simulación; hay que avanzar vela por vela.",
+        ""
+      ],
+      "explain": "Después de registrar la entrada sigues avanzando vela por vela, sin saltar al final, hasta que el precio toque tu invalidación/stop o tu objetivo; ahí anotas el resultado en R y buscas la siguiente oportunidad desde ese punto. En el ejemplo del documento, la vela 23 llegó al objetivo: +2.3R."
+    },
+    {
+      "block": "46",
+      "lvl": "Comprender",
+      "q": "Tu backtest da una expectativa de +0.3R. ¿Qué significa correctamente ese número?",
+      "opts": [
+        "Aplicado muchas veces, el modelo tiende a aportar 0.3R por operación en promedio, aunque haya rachas.",
+        "En 10 operaciones acumularás 3R, con tal de que respetes el plan en cada una de ellas sin excepción.",
+        "Cada operación individual ganará 0.3R, por lo que una operación perdedora indicaría que el modelo falló.",
+        "Ganarás más operaciones de las que pierdas, porque una expectativa positiva exige un winrate superior a 50%."
+      ],
+      "correct": 0,
+      "why": [
+        "",
+        "El promedio aparece con muestras grandes; en 10 operaciones el resultado puede alejarse mucho de 3R.",
+        "Es un promedio sobre muchas operaciones; una operación individual puede cerrar en −1R, +2R o cualquier otro valor.",
+        "Se puede tener expectativa positiva con un winrate de 35% si las ganadoras son lo bastante grandes."
+      ],
+      "explain": "Expectativa positiva significa ventaja estadística: el promedio por operación tiende a +0.3R conforme aplicas el modelo muchas veces. No dice que cada operación gane, ni que el winrate supere 50%, ni cuánto sumarás en un tramo corto."
+    },
+    {
+      "block": "47",
+      "lvl": "Evaluar",
+      "q": "Tu backtest mostró una racha máxima de 6 pérdidas. Operando en real llevas 5 seguidas y sientes ganas de duplicar el lote para recuperar. ¿Cuál es la lectura y la acción correctas según el concepto 47?",
+      "opts": [
+        "Pausas y rediseñas el modelo, porque 5 pérdidas consecutivas indican que dejó de funcionar en cuenta real.",
+        "Reduces el stop de las siguientes operaciones para perder menos por intento mientras dura la racha.",
+        "Es una racha ya vista en tus datos: sigues el plan con el lote definido, porque romperlo ahí es el error clásico.",
+        "Duplicas el lote, porque tras 5 pérdidas seguidas la siguiente tiene más probabilidad de ser ganadora."
+      ],
+      "correct": 2,
+      "why": [
+        "5 está dentro de lo medido (máximo 6): no es evidencia de que el modelo haya cambiado.",
+        "Cambiar el stop a mitad de racha es modificar el modelo bajo presión, justo lo que el backtest buscaba evitar.",
+        "",
+        "Cada operación es independiente de la anterior; duplicar el lote convierte una racha prevista en un golpe mayor a la cuenta."
+      ],
+      "explain": "El valor de conocer el drawdown es poder decir 'esto ya lo vi en el backtesting, sigo el plan' en vez de entrar en pánico. 5 pérdidas están dentro de la racha máxima observada (6). Romper el plan justo ahí es el error que señala el concepto 47, y conecta con el Bloque E de disciplina."
+    },
+    {
+      "block": "45",
+      "lvl": "Aplicar",
+      "q": "Tu plataforma no ofrece repetición de barras y quieres hacer backtesting honesto de tu modelo. ¿Qué opción respeta el principio del método?",
+      "opts": [
+        "Posponer el backtesting hasta tener una plataforma con esa función, porque sin ella el método no es aplicable.",
+        "Elegir un marco temporal grande, donde las velas tardan más en formarse y es más difícil anticipar el desenlace.",
+        "Usar el gráfico completo, pero decidir en voz alta qué harías en cada tramo antes de mirar el resto.",
+        "Tapar la pantalla más allá del punto que analizas y destapar una vela a la vez, o usar capturas recortadas."
+      ],
+      "correct": 3,
+      "why": [
+        "El método no depende de la herramienta sino del principio de no ver el futuro; se logra con un papel o una captura recortada.",
+        "El tamaño de la vela no oculta nada: el futuro sigue dibujado a la derecha.",
+        "Con el gráfico completo a la vista, tus ojos ya vieron el final, aunque lo digas en voz alta.",
+        ""
+      ],
+      "explain": "El documento lo dice: lo que importa es el principio, no la herramienta exacta. Si no ves ninguna vela posterior al punto de decisión, el método se respeta, ya sea con bar replay, con un papel sobre la pantalla o con capturas recortadas."
+    },
+    {
+      "block": "44",
+      "lvl": "Aplicar",
+      "q": "Antes de contar tus 10 ejemplos históricos del Bloque K como validación de tu modelo, descubres que marcaste 6 de ellos con el gráfico completo a la vista. ¿Qué haces con esos 6?",
+      "opts": [
+        "Los revisas con el método barra por barra y cuentas solo los que cumplan los cinco pasos en ese momento.",
+        "Los descartas y buscas 6 nuevos ejemplos en el mismo gráfico completo, esta vez siendo más cuidadoso al elegir.",
+        "Los cuentas igual, porque el modelo ya estaba escrito antes de revisarlos y las reglas no cambiaron.",
+        "Los cuentas, pero reduces a la mitad su resultado en R para compensar la posible ventaja de haberlos visto."
+      ],
+      "correct": 0,
+      "why": [
+        "",
+        "Elegir otros 6 con el gráfico completo repite exactamente el mismo sesgo, por más cuidado que pongas.",
+        "Que el modelo estuviera escrito no cambia el problema: tus decisiones de qué marcar sí se tomaron viendo el final.",
+        "Recortar el resultado a ojo es un parche arbitrario; no distingue cuáles cumplían de verdad el modelo."
+      ],
+      "explain": "El documento lo indica: si los marcaste con el final a la vista, se revisan otra vez con el método del concepto 45 antes de contarlos. Solo cuentan los que cumplen los cinco pasos con la información que existía en ese instante; los demás eran retrospectiva."
+    },
+    {
+      "block": "45",
+      "lvl": "Aplicar",
+      "q": "En repetición de barras llegas a la vela 12: el contexto sigue siendo alcista y el precio acaba de entrar a tu zona de interés, pero todavía no hay vela de confirmación. ¿Qué haces?",
+      "opts": [
+        "Marcas la zona como fallida y esperas a que el precio se aleje antes de volver a analizar ese nivel.",
+        "Avanzas varias velas de golpe para comprobar que la zona realmente respeta el nivel antes de continuar.",
+        "No registras nada y avanzas una vela, repitiendo las mismas preguntas del modelo con la información nueva.",
+        "Registras una entrada anticipada en la zona, para no perder la operación si la confirmación llega después."
+      ],
+      "correct": 2,
+      "why": [
+        "Que todavía no haya confirmación no vuelve fallida la zona; es una vela más donde el modelo dice 'aún no'.",
+        "Adelantarte es 'espiar': el futuro empieza a influir en cómo juzgas esta vela.",
+        "",
+        "Entrar antes de la confirmación rompe el modelo: el paso 3 todavía no se cumple, así que no hay operación válida."
+      ],
+      "explain": "Si en algún paso la respuesta es 'no', simplemente avanzas a la siguiente vela sin registrar nada: la mayoría de las velas no producen operación, igual que en vivo. La confirmación debe aparecer dentro de la zona antes de definir el gatillo."
+    },
+    {
+      "block": "47",
+      "lvl": "Evaluar",
+      "type": "numeric",
+      "unit": "pérdidas",
+      "q": "Sabes que tu límite psicológico es una caída de 12% de la cuenta sin romper el plan. Tu riesgo por operación es 1.5%. ¿Cuántas pérdidas seguidas te llevan exactamente a ese límite?",
+      "answer": 8,
+      "tolerance": 0,
+      "explain": "12% ÷ 1.5% = 8 pérdidas seguidas. Si la máxima racha de tu backtest es de 8 o más, tu tolerancia no alcanza para ese riesgo: antes de operar en real conviene bajar el % por operación (con 1%, esas 8 pérdidas costarían 8% y no 12%)."
+    },
+    {
+      "block": "44",
+      "lvl": "Analizar",
+      "q": "Ana y Beto revisan los mismos 3 meses de XAUUSD. Ana mira el gráfico completo y marca 6 entradas ganadoras. Beto oculta lo posterior, avanza vela por vela y solo encuentra 3 de esas 6 cumpliendo los cinco pasos del modelo. ¿Qué explica la diferencia?",
+      "opts": [
+        "Beto aplicó una versión más estricta del modelo, con reglas adicionales que Ana no estaba usando.",
+        "Ana tiene mejor ojo para detectar entradas, y Beto se está perdiendo oportunidades válidas del modelo.",
+        "La repetición de barras elimina velas del análisis, y por eso reduce la cantidad de señales válidas disponibles.",
+        "Tres de las entradas de Ana solo parecían obvias porque ella ya sabía que el precio había subido después."
+      ],
+      "correct": 3,
+      "why": [
+        "Ambos aplican el mismo modelo; lo que cambia es la información disponible al decidir, no la exigencia de las reglas.",
+        "Ver más entradas con el gráfico completo no es mejor ojo: es una ventaja de información que no existe en tiempo real.",
+        "La repetición de barras no elimina señales reales: solo evita que veas las velas futuras. Las que desaparecen son las que únicamente se veían con el final conocido.",
+        ""
+      ],
+      "explain": "Es el ejemplo clásico del concepto 44: con el final a la vista, entradas dudosas se vuelven 'claramente válidas'. Beto decide con la información del momento, así que su conteo (3) es el dato real; el de Ana (6) está inflado por retrospectiva."
+    },
+    {
+      "block": "46",
+      "lvl": "Aplicar",
+      "type": "numeric",
+      "unit": "R",
+      "q": "Backtest de 50 operaciones: 20 ganadoras con +1.8R de promedio y 30 perdedoras con −0.9R de promedio (algunos stops se cerraron antes de llegar a 1R). Calcula la expectativa matemática, en R por operación.",
+      "answer": 0.18,
+      "tolerance": 0.005,
+      "explain": "Winrate = 20 ÷ 50 = 40%. Expectativa = (0.40 × 1.8) − (0.60 × 0.9) = 0.72 − 0.54 = 0.18R por operación. Observa que la pérdida promedio no tiene que ser exactamente 1R: se usa el promedio real de tus perdedoras."
+    },
+    {
+      "block": "47",
+      "lvl": "Aplicar",
+      "q": "Estos son los resultados consecutivos de una bitácora: +2R, −1R, −1R, −1R, +1.5R, −1R, −1R, +2R, −1R, −1R, −1R, −1R, +3R, −1R. ¿Cuál es su máxima racha de pérdidas consecutivas?",
+      "opts": [
+        "4 pérdidas seguidas, equivalentes a −4R, que ocurren justo antes de la ganadora de +3R.",
+        "5 pérdidas seguidas, equivalentes a −5R, juntando la racha de 3 inicial con la de 2 del centro.",
+        "10 pérdidas, equivalentes a −10R, que es el total de perdedoras de toda la bitácora.",
+        "3 pérdidas seguidas, equivalentes a −3R, que es la primera racha que aparece en la bitácora."
+      ],
+      "correct": 0,
+      "why": [
+        "",
+        "Una ganadora en medio corta la racha; las rachas separadas no se suman.",
+        "Eso es el total de pérdidas, no la racha: la racha cuenta solo las consecutivas, sin ganadora en medio.",
+        "Esa racha de 3 es real, pero hay una posterior más larga; la máxima exige revisar toda la secuencia."
+      ],
+      "explain": "Se revisa la secuencia completa: 3 pérdidas, ganadora, 2 pérdidas, ganadora, 4 pérdidas, ganadora, 1 pérdida. La máxima racha es 4 (−4R). Dos errores comunes son contar todas las perdedoras (10) o sumar rachas que una ganadora separa."
+    },
+    {
+      "block": "46",
+      "lvl": "Analizar",
+      "q": "Un alumno calcula: winrate 45%, ganadoras de +2R y perdedoras de −1R, y escribe 0.45 × 2 − 0.45 × 1 = 0.45R. ¿Cuál es su error?",
+      "opts": [
+        "No cometió ningún error: el winrate de 45% se aplica por igual a ganadoras y perdedoras al calcular.",
+        "Debió promediar +2R y −1R en un solo número y luego multiplicarlo por el winrate de 45%.",
+        "Multiplicó las perdedoras por 45% en vez de por 55%; lo correcto da 0.90 − 0.55 = +0.35R.",
+        "Debió sumar ambos términos en lugar de restarlos, porque las pérdidas también cuentan como un resultado."
+      ],
+      "correct": 2,
+      "why": [
+        "El winrate pesa a las ganadoras; las perdedoras ocurren el resto de las veces, es decir (1 − winrate) = 55%.",
+        "Promediar ganadoras y perdedoras sin ponderar por su frecuencia ignora cuántas veces ocurre cada una.",
+        "",
+        "Las pérdidas restan; sumarlas inflaría la expectativa a 1.45R, un número que el modelo no produce."
+      ],
+      "explain": "La fórmula es (winrate × R de ganadoras) − ((1 − winrate) × R de perdedoras). Con 45%: (0.45 × 2) − (0.55 × 1) = 0.90 − 0.55 = +0.35R. El error típico es olvidar que las perdedoras ocurren el 55% de las veces, no el 45%."
+    },
+    {
+      "block": "44",
+      "lvl": "Evaluar",
+      "q": "Un alumno 'probó' su modelo viendo el gráfico completo y obtuvo 85% de winrate. En su primer mes operando en real obtiene 40%. Según el concepto 44, ¿cuál es la explicación más probable?",
+      "opts": [
+        "Un mes es muy poco tiempo, y la diferencia desaparecerá al acumular más operaciones en cuenta real con el modelo.",
+        "El 85% medía cuántas ganadoras ya conocidas lograba reconocer, no su capacidad real de decidir sin saber el final.",
+        "El mercado cambió de comportamiento justo al pasar a cuenta real, algo que ningún backtest puede anticipar.",
+        "El bróker aplicó spreads más amplios que durante la prueba, lo que redujo el winrate en esa misma proporción."
+      ],
+      "correct": 1,
+      "why": [
+        "Esperar a que 'se corrija solo' ignora que el 85% nunca fue una medición real del modelo.",
+        "",
+        "Los mercados cambian, pero antes de culpar al mercado hay que descartar el sesgo: un 85% obtenido con el final a la vista no era una medición real.",
+        "Un spread amplio puede restar algo, pero no explica una caída de 45 puntos de winrate."
+      ],
+      "explain": "Un backtest con retrospectiva produce resultados 'falsamente perfectos': marcas lo que ya sabes que ganó. Al operar en real ya no hay final conocido y aparece el winrate verdadero. Es la razón número uno por la que alguien llega a real con una confianza que los datos nunca respaldaron."
+    },
+    {
+      "block": "47",
+      "lvl": "Aplicar",
+      "type": "numeric",
+      "unit": "%",
+      "q": "Tu backtest muestra una máxima racha de 8 pérdidas consecutivas. Si arriesgas 0.75% de tu cuenta por operación, ¿qué porcentaje de la cuenta cae en esa racha (sin considerar interés compuesto)?",
+      "answer": 6,
+      "tolerance": 0.05,
+      "explain": "Cada pérdida es −1R, que equivale al 0.75% de la cuenta. Entonces 8 × 0.75% = 6%. Con la Calculadora de Riesgo lo verías también en dólares: en una cuenta de $8,000 serían $60 por pérdida y $480 en la racha."
+    },
+    {
+      "block": "T",
+      "lvl": "Evaluar",
+      "q": "Tras 50 operaciones barra por barra, tu modelo tiene winrate 44%, expectativa +0.36R y racha máxima de 6 pérdidas (6% de la cuenta con tu riesgo). Mirando el gráfico completo, esas mismas fechas te habían dado +1.2R de expectativa. ¿Qué decisión es razonable?",
+      "opts": [
+        "Quedarte con los +1.2R, porque es el resultado más alto y muestra el máximo potencial que tiene el modelo.",
+        "Promediar las dos mediciones, porque ambas usan las mismas fechas y reflejan partes distintas de la historia.",
+        "Descartar el modelo, porque un winrate de 44% está por debajo de 50% y pierde más veces de las que gana.",
+        "Decidir con los números barra por barra: expectativa positiva y racha tolerable justifican refinar el modelo."
+      ],
+      "correct": 3,
+      "why": [
+        "El resultado más alto no es el más real: el +1.2R se obtuvo viendo el final.",
+        "No son dos mediciones válidas: la de +1.2R está contaminada por retrospectiva, y promediarla contamina también la buena.",
+        "El winrate no se evalúa solo: lo que decide es la expectativa, y esta salió positiva.",
+        ""
+      ],
+      "explain": "La medición válida es la barra por barra: +0.36R de expectativa y 6% de racha máxima. La de +1.2R es retrospectiva y no cuenta. El 44% no descarta el modelo porque se evalúa junto con el tamaño de ganadoras y perdedoras. La decisión es seguir refinándolo y, eventualmente, operarlo en real con el tamaño de posición correcto."
+    }
   ];
+
 
   // ---------------- state ----------------
   let idx = 0;
@@ -1198,12 +1375,12 @@ const QUESTIONS = [
     const item = QUESTIONS[idx];
     const info = BLOCKS[item.block];
     progressText.textContent = "Pregunta " + (idx+1) + " de " + QUESTIONS.length;
-    progressBlock.textContent = "Bloque " + item.block;
+    progressBlock.textContent = info.label;
     progressFill.style.width = Math.round((idx/QUESTIONS.length)*100) + "%";
 
     if (item.type === "numeric"){
       qCard.innerHTML =
-        '<p class="q-eyebrow">Bloque ' + item.block + ' · ' + escapeHtml(info.name) + ' · Cálculo</p>' +
+        '<p class="q-eyebrow">' + escapeHtml(info.label) + ' · ' + escapeHtml(info.name) + ' · ' + escapeHtml(item.lvl) + ' · Cálculo</p>' +
         '<h2 class="q-text">' + escapeHtml(item.q) + '</h2>' +
         '<div class="numeric-row">' +
           '<input type="number" step="any" inputmode="decimal" class="numeric-input" id="numeric-input" placeholder="Tu respuesta' + (item.unit ? " (" + item.unit + ")" : "") + '">' +
@@ -1235,7 +1412,7 @@ const QUESTIONS = [
     });
 
     qCard.innerHTML =
-      '<p class="q-eyebrow">Bloque ' + item.block + ' · ' + escapeHtml(info.name) + '</p>' +
+      '<p class="q-eyebrow">' + escapeHtml(info.label) + ' · ' + escapeHtml(info.name) + ' · ' + escapeHtml(item.lvl) + '</p>' +
       '<h2 class="q-text">' + escapeHtml(item.q) + '</h2>' +
       '<div class="q-options">' + optsHtml + '</div>' +
       '<div class="q-feedback" id="q-feedback" hidden></div>' +
@@ -1273,9 +1450,16 @@ const QUESTIONS = [
     const fb = document.getElementById("q-feedback");
     fb.hidden = false;
     fb.className = "q-feedback " + (isOk ? "ok" : "no");
-    const correctStr = item.answer + (item.unit ? " " + item.unit : "");
-    fb.innerHTML = (isOk ? ICON.check : ICON.x) +
-      "<p><b>" + (isOk ? "Correcto." : "Respuesta correcta: " + correctStr + ".") + "</b> " + escapeHtml(item.explain) + "</p>";
+    const unitStr = item.unit ? " " + item.unit : "";
+    const correctStr = item.answer + unitStr;
+    if (isOk){
+      fb.innerHTML = ICON.check + '<div class="fb-body"><p><b>Correcto.</b> ' + escapeHtml(item.explain) + '</p></div>';
+    } else {
+      fb.innerHTML = ICON.x + '<div class="fb-body">' +
+        '<p><b>No es esa.</b> ' + (val === null ? 'No escribiste un número.' : 'Respondiste ' + escapeHtml(String(val)) + unitStr + '.') + '</p>' +
+        '<p class="fb-correct"><span class="fb-tag">Respuesta correcta</span><b>' + escapeHtml(correctStr) + '</b></p>' +
+        '<p><span class="fb-tag">Procedimiento</span>' + escapeHtml(item.explain) + '</p></div>';
+    }
     goNextAfterAnswer();
   }
 
@@ -1297,8 +1481,15 @@ const QUESTIONS = [
     const fb = document.getElementById("q-feedback");
     fb.hidden = false;
     fb.className = "q-feedback " + (isOk ? "ok" : "no");
-    fb.innerHTML = (isOk ? ICON.check : ICON.x) +
-      '<p><b>' + (isOk ? "Correcto." : "No es esa.") + '</b> ' + escapeHtml(item.explain) + '</p>';
+    const L4 = ["A","B","C","D"];
+    if (isOk){
+      fb.innerHTML = ICON.check + '<div class="fb-body"><p><b>Correcto.</b> ' + escapeHtml(item.explain) + '</p></div>';
+    } else {
+      fb.innerHTML = ICON.x + '<div class="fb-body">' +
+        '<p><b>No es esa.</b> ' + escapeHtml(item.why[chosen]) + '</p>' +
+        '<p class="fb-correct"><span class="fb-tag">Respuesta correcta</span><b>' + L4[correct] + ') ' + escapeHtml(item.opts[correct]) + '</b></p>' +
+        '<p><span class="fb-tag">Por qué</span>' + escapeHtml(item.explain) + '</p></div>';
+    }
 
     goNextAfterAnswer();
   }
@@ -1338,6 +1529,7 @@ const QUESTIONS = [
     verdictEl.innerHTML = icon + label;
 
     renderChart(perBlock);
+    renderReview();
     renderFeedback(perBlock);
 
     const weakLetters = BLOCK_ORDER.filter(function(b){
@@ -1347,6 +1539,39 @@ const QUESTIONS = [
     currentSummary = buildSummaryText(score, percent, weakLetters, label);
     const waBtn = document.getElementById("btn-whatsapp");
     if (waBtn) waBtn.href = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(currentSummary);
+  }
+
+
+  function renderReview(){
+    const list = document.getElementById("review-list");
+    list.innerHTML = "";
+    const letters = ["A","B","C","D"];
+    let n = 0;
+    QUESTIONS.forEach(function(item, i){
+      if (isAnswerCorrect(item, answers[i])) return;
+      n++;
+      const info = BLOCKS[item.block];
+      const div = document.createElement("div");
+      div.className = "review-item";
+      let yours, right;
+      if (item.type === "numeric"){
+        yours = (answers[i] === null || answers[i] === undefined) ? "sin respuesta" : (answers[i] + (item.unit ? " " + item.unit : ""));
+        right = item.answer + (item.unit ? " " + item.unit : "");
+      } else {
+        yours = (answers[i] === null || answers[i] === undefined) ? "sin respuesta" : (letters[answers[i]] + ") " + item.opts[answers[i]]);
+        right = letters[item.correct] + ") " + item.opts[item.correct];
+      }
+      div.innerHTML =
+        '<span class="ri-meta">Pregunta ' + (i+1) + ' · ' + escapeHtml(info.label) + '</span>' +
+        '<h4>' + escapeHtml(item.q) + '</h4>' +
+        '<p class="ri-yours"><b>Tu respuesta:</b> ' + escapeHtml(yours) + '</p>' +
+        '<p class="ri-right"><b>Respuesta correcta:</b> ' + escapeHtml(right) + '</p>' +
+        '<p><b>Por qué:</b> ' + escapeHtml(item.explain) + '</p>';
+      list.appendChild(div);
+    });
+    if (n === 0){
+      list.innerHTML = '<div class="review-ok">No fallaste ninguna pregunta. Aun así, repasa las explicaciones de las que dudaste: entender el porqué es lo que te permite aplicarlo en el backtesting real.</div>';
+    }
   }
 
   function renderChart(perBlock){
@@ -1379,21 +1604,21 @@ const QUESTIONS = [
 
     if (weak.length === 0){
       list.appendChild(feedbackCard("good", ICON.check, "Base completa y consistente",
-        "No hay bloques por debajo del umbral de dominio, incluyendo los cálculos de riesgo. Puedes avanzar con confianza a la Semana 3 — mantén la bitácora activa para que este nivel no se pierda con la práctica real.", null));
+        "Ningún concepto quedó por debajo del umbral de dominio, incluyendo los cálculos. Puedes avanzar al siguiente módulo y hacer tu backtesting de 50 operaciones con la misma disciplina.", null));
     } else {
       weak.forEach(function(r){
         const info = BLOCKS[r.b];
         list.appendChild(feedbackCard("bad", ICON.alert,
-          "Repasar Bloque " + r.b + " — " + info.name,
-          "Acertaste " + r.stat.correct + " de " + r.stat.total + " en este bloque (" + Math.round(r.pct) + "%). Vuelve a leer las definiciones y, si el bloque incluye cálculo, repite las operaciones a mano antes de la próxima sesión.",
+          "Repasar " + info.label + " — " + info.name,
+          "Acertaste " + r.stat.correct + " de " + r.stat.total + " en este concepto (" + Math.round(r.pct) + "%). Vuelve a leerlo en el documento del Módulo 4 y, si incluye cálculo, repite las operaciones a mano antes de la próxima sesión.",
           info.doc));
       });
     }
 
     if (strong.length){
       const names = strong.map(function(r){ return r.b; }).join(", ");
-      list.appendChild(feedbackCard("good", ICON.check, "Bloques dominados: " + names,
-        "En estos bloques tu criterio ya es sólido, incluyendo cuando hay que hacer cuentas, no solo reconocer definiciones. Es exactamente el nivel que necesitamos para exigir más precisión.", null));
+      list.appendChild(feedbackCard("good", ICON.check, "Conceptos dominados: " + names,
+        "En estos conceptos tu criterio ya es sólido, incluyendo cuando hay que hacer cuentas, no solo reconocer definiciones. Es exactamente el nivel que necesitamos para exigir más precisión.", null));
     }
   }
 
@@ -1406,12 +1631,12 @@ const QUESTIONS = [
   }
 
   function buildSummaryText(score, percent, weakLetters, verdictLabel){
-    let msg = "Evaluación de trading — " + studentName +
+    let msg = "Evaluación Módulo 4 — " + studentName +
       "\nResultado: " + score + "/" + QUESTIONS.length + " (" + percent + "%)" +
       "\nVeredicto: " + verdictLabel;
     msg += weakLetters.length
-      ? "\nBloques a repasar: " + weakLetters.join(", ")
-      : "\nTodos los bloques por encima del umbral de dominio.";
+      ? "\nConceptos a repasar: " + weakLetters.map(function(b){ return BLOCKS[b].label; }).join(", ")
+      : "\nTodos los conceptos por encima del umbral de dominio.";
     return msg;
   }
 
